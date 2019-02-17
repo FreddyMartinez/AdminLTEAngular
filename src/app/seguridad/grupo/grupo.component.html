@@ -1,3 +1,58 @@
-<p>
-  grupo works!
-</p>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+      Formulario de Grupo
+      <small>Creación de grupo</small>
+  </h1>
+  <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Seguridad</a></li>
+      <li class="active">Grupo</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content container-fluid">
+      <fieldset>
+          <div class="form-horizontal">
+      
+              <p class="centered">Bienvenido al formulario de creación de ítems del menú.</p>
+              <br />
+              <!-- Campo para seleccionar tipo de solicitud, solo disponible para usuario de planeacion -->
+              <div class="form-group">
+                  <label class="col-md-4 control-label" for="nombre">Nombre</label>
+                  <div class="col-md-4">
+                      <input type="text" class="form-control" required>
+                      <!-- <span *ngIf="!tipo_solicitud.valid && tipo_solicitud.touched" class="warning-message">El tipo de iniciativa es requerido</span> -->
+                  </div>
+              </div>
+      
+              <!-- Campo para seleccionar tipo de solicitud, solo disponible para usuario de planeacion -->
+              <div class="form-group">
+                  <label class="col-md-4 control-label" for="descripción">Descripción</label>
+                  <div class="col-md-4">
+                      <input type="text" class="form-control" required>
+                      <!-- <span *ngIf="!tipo_solicitud.valid && tipo_solicitud.touched" class="warning-message">El tipo de iniciativa es requerido</span> -->
+                  </div>
+              </div>
+      
+              <div class="form-group">
+      
+                  <!-- Boton para registrar la iniciativa -->
+                  <label class="col-md-4 control-label" for="GuardarButton"></label>
+                  <div class="col-md-2">
+                      <button type="submit" class="btn btn-success">Guardar</button>
+                  </div>
+      
+                  <!-- Boton para regresar a la pagina de log de mejoras y cancelar el registro -->
+                  <label class="col-md-1 control-label" for="RegresarButton"></label>
+                  <div class="col-md-2">
+                      <button name="RegresarButton" class="btn btn-danger">Cancelar</button>
+                  </div>
+      
+              </div>
+      
+          </div>
+      </fieldset>
+
+</section>
+<!-- /.content -->
