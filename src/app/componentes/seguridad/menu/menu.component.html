@@ -59,4 +59,28 @@
       </fieldset>
 
 </section>
+
+<section>
+    <div class="table-responsive">        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Tag</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let menu of listaMenu">
+                    <td>{{menu.id}}</td>
+                    <td>{{menu.tag}}</td>
+                    <td>{{menu.nombre}}</td>
+                    <td>{{menu.descripcion}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="min-height: 10px;"></div>
+</section>
 <!-- /.content -->
