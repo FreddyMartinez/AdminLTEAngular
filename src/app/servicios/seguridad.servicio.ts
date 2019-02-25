@@ -19,6 +19,6 @@ export class SeguridadServicios {
     
     ConsultarMenu(){
         const url = Conexion.UrlApi.concat(Conexion.consultarMenu);
-        return this.http.get(url, httpOptions);
+        return this.http.post(url, "", httpOptions);
     }
 }
