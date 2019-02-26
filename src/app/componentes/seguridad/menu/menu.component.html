@@ -1,86 +1,110 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-  <h1>
-      Formulario de Menú
-      <small>Creación de ítems del menú</small>
-  </h1>
-  <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i>Seguridad</a></li>
-      <li class="active">Menú</li>
-  </ol>
+    <h1>
+        Formulario de Menú
+        <small>Creación de ítems del menú</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Seguridad</a></li>
+        <li class="active">Menú</li>
+    </ol>
+</section>
+
+<section class="content container-fluid">
+    <fieldset>
+        <p class="centered">Ítems del menú.</p>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Modificar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let menu of listaMenu">
+                        <td>{{menu.nombre}}</td>
+                        <td>{{menu.descripcion}}</td>
+                        <td><button class="btn btn-warning" (click)="CargarItem(menu)"><i class="fa fa-pencil"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <button class="btn btn-success" title="Añadir ítem" (click)="NuevoItem()"><i class="fa fa-plus-square"></i></button>
+        </div>
+    </fieldset>
 </section>
 
 <!-- Main content -->
-<section class="content container-fluid">
-      <fieldset>
-          <div class="form-horizontal">
-      
-              <p class="centered">Bienvenido al formulario de creación de ítems del menú.</p>
-              <br />
-              <div class="form-group">
-                  <label class="col-md-4 control-label" for="nombre">Nombre</label>
-                  <div class="col-md-4">
-                      <input type="text" class="form-control" id="nombre" required>
-                      <!-- <span *ngIf="!tipo_solicitud.valid && tipo_solicitud.touched" class="warning-message">El tipo de iniciativa es requerido</span> -->
-                  </div>
-              </div>
-      
-              <div class="form-group">
-                  <label class="col-md-4 control-label" for="descripcion">Descripción</label>
-                  <div class="col-md-4">
-                      <input type="text" class="form-control" id="descripcion" required>
-                      <!-- <span *ngIf="!tipo_solicitud.valid && tipo_solicitud.touched" class="warning-message">El tipo de iniciativa es requerido</span> -->
-                  </div>
-              </div>
-      
-              <div class="form-group">
-                  <label class="col-md-4 control-label" for="id_menu">Id Menú</label>
-                  <div class="col-md-4">
-                    <select [(ngModel)]="idMenu" name="id_menu" class="form-control" required>
-                        <option *ngFor="let tipo of pruebas" [ngValue]="tipo">{{tipo}}</option>
-                    </select>
-                      <!-- <span *ngIf="!tipo_solicitud.valid && tipo_solicitud.touched" class="warning-message">El tipo de iniciativa es requerido</span> -->
-                  </div>
-              </div>
-      
-              <div class="form-group">
-                  <label class="col-md-4 control-label" ></label>
-                  <div class="col-md-2">
-                      <button type="submit" class="btn btn-success">Guardar</button>
-                  </div>
-                  <label class="col-md-1 control-label" for="RegresarButton"></label>
-                  <div class="col-md-2">
-                      <button name="RegresarButton" class="btn btn-danger">Cancelar</button>
-                  </div>
-      
-              </div>
-      
-          </div>
-      </fieldset>
+<section class="content container-fluid" @myInsertRemoveTrigger *ngIf="itemMenu">
+    <fieldset>
+        <div class="form-horizontal">
 
-</section>
+            <p class="centered">Bienvenido al formulario de {{tipoForm}}.</p>
+            <br />
 
-<section>
-    <div class="table-responsive">        
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Tag</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let menu of listaMenu">
-                    <td>{{menu.id}}</td>
-                    <td>{{menu.tag}}</td>
-                    <td>{{menu.nombre}}</td>
-                    <td>{{menu.descripcion}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div style="min-height: 10px;"></div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="id_menu">Id Menú</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="id_menu" [(ngModel)]="itemMenu.id" name="id_menu" disabled>                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="nombre">Nombre</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="nombre" [(ngModel)]="itemMenu.nombre" #nombre="ngModel" required>
+                    <span *ngIf="!nombre.valid && nombre.touched" class="warning-message">El nombre es requerido</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="descripcion">Descripción</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="descripcion" [(ngModel)]="itemMenu.descripcion" #descripcion="ngModel" required>
+                    <span *ngIf="!descripcion.valid && descripcion.touched" class="warning-message">La descripción es requerida</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tag_menu">Tag Menú</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="tag_menu" [(ngModel)]="itemMenu.tag" #tag_menu="ngModel" [disabled]="editarItem" required>                    
+                    <span *ngIf="!tag_menu.valid && tag_menu.touched" class="warning-message">El tag del menú es requerido</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iconoMenu">Ícono</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="iconoMenu" [(ngModel)]="itemMenu.icono" name="iconoMenu" #iconoMenu="ngModel" required>                    
+                    <span *ngIf="!iconoMenu.valid && iconoMenu.touched" class="warning-message">El ícono del menú es requerido</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="menu_activo">Activo</label>
+                <div class="col-md-4">
+                    <input type="checkbox" id="menu_activo" [(ngModel)]="itemMenu.activo" name="menu_activo">                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-2">
+                    <button name="guardarBtn" type="submit" class="btn btn-success" (click)="GuardarMenu()">Guardar</button>
+                </div>
+                <label class="col-md-1 control-label" for="RegresarButton"></label>
+                <div class="col-md-2">
+                    <button name="RegresarButton" class="btn btn-danger" (click)="CancelaItem()">Cancelar</button>
+                </div>
+
+            </div>
+
+        </div>
+    </fieldset>
+
 </section>
 <!-- /.content -->
