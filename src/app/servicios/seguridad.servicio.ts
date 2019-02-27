@@ -32,4 +32,9 @@ export class SeguridadServicios {
         const url = Conexion.UrlApi.concat(Conexion.modificarMenu);
         return this.http.post(url, menu, httpOptions);
     }
+
+    EliminarMenu(menu : MenuModelo){
+        const url = Conexion.UrlApi.concat(Conexion.eliminarMenu);
+        return this.http.post(url, menu, httpOptions);
+    }
 }

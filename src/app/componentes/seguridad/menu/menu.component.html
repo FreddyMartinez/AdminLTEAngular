@@ -20,6 +20,7 @@
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Modificar</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,7 @@
                         <td>{{menu.nombre}}</td>
                         <td>{{menu.descripcion}}</td>
                         <td><button class="btn btn-warning" (click)="CargarItem(menu)"><i class="fa fa-pencil"></i></button></td>
+                        <td><button class="btn btn-danger" (click)="AbreModal(menu)"><i class="fa fa-trash"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -94,7 +96,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-2">
-                    <button name="guardarBtn" type="submit" class="btn btn-success" (click)="GuardarMenu()">Guardar</button>
+                    <button name="guardarBtn" type="submit" class="btn btn-success" (click)="GuardarMenu()" [disabled]="!HabilitaGuardar()">Guardar</button>
                 </div>
                 <label class="col-md-1 control-label" for="RegresarButton"></label>
                 <div class="col-md-2">
@@ -108,3 +110,34 @@
 
 </section>
 <!-- /.content -->
+<!-- modal eliminar -->
+<div class="modal fade" bsModal #modalEliminar="bs-modal" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminar"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEliminar">Eliminar Ítem del Menú</h5>
+                <button type="button" class="close" aria-label="Close" (click)="modalEliminar.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" *ngIf="itemEliminar">
+                    <p>Está seguro que desea eliminar el ítem {{itemEliminar.nombre}}?</p>                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-6 text-center">
+                    <button type="button" class="btn btn-danger" (click)="EliminarMenu()">Eliminar</button>
+                </div>
+                <div class="col-md-6 text-center">                
+                    <button type="button" class="btn btn-secondary" (click)="modalEliminar.hide()">Cancelar</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner  bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-fussion" fullScreen = "true">
+    <p style="color: white" > Cargando... </p>
+</ngx-spinner>

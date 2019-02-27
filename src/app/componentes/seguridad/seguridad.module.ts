@@ -6,11 +6,16 @@ import { GrupoComponent } from './grupo/grupo.component';
 import { SeguridadRoutingModule } from './seguridad-routing.module';
 import { FormsModule} from '@angular/forms'
 
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ModalModule } from 'ngx-bootstrap';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    SeguridadRoutingModule
+    NgxSpinnerModule,
+    SeguridadRoutingModule,    
+    ModalModule.forRoot()
   ],
   declarations: [MenuComponent, PermisoComponent, GrupoComponent]
 })
