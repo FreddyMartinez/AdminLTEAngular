@@ -37,4 +37,24 @@ export class SeguridadServicios {
         const url = Conexion.UrlApi.concat(Conexion.eliminarMenu);
         return this.http.post(url, menu, httpOptions);
     }
+    
+    ConsultarGrupo(){
+        const url = Conexion.UrlApi.concat(Conexion.consultarGrupo);
+        return this.http.post(url, "", httpOptions);
+    }    
+    
+    CrearGrupo(menu : MenuModelo){
+        const url = Conexion.UrlApi.concat(Conexion.crearMenu);
+        return this.http.post(url, menu, httpOptions);
+    }
+    
+    ModificarGrupo(menu : MenuModelo){
+        const url = Conexion.UrlApi.concat(Conexion.modificarMenu);
+        return this.http.post(url, menu, httpOptions);
+    }
+
+    EliminarGrupo(menu : MenuModelo){
+        const url = Conexion.UrlApi.concat(Conexion.eliminarMenu);
+        return this.http.post(url, menu, httpOptions);
+    }
 }

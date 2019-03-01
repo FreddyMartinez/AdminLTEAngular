@@ -7,4 +7,5 @@ export class Conexion{
     public static readonly crearMenu : string = 'SeguridadPOS/crearMenu';
     public static readonly modificarMenu : string = 'SeguridadPOS/modificarMenu';
     public static readonly eliminarMenu : string = 'SeguridadPOS/eliminarMenu';
+    public static readonly consultarGrupo : string = 'SeguridadPOS/consultarGrupo';
 }
