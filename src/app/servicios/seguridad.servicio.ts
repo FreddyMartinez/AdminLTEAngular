@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Conexion } from '../util/conexion';
 import { MenuModelo } from '../modelos/menu.modelo';
+import { GrupoModelo } from '../modelos/grupo.modelo';
+import { PermisoModelo } from '../modelos/permiso.modelo';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -43,18 +45,38 @@ export class SeguridadServicios {
         return this.http.post(url, "", httpOptions);
     }    
     
-    CrearGrupo(menu : MenuModelo){
-        const url = Conexion.UrlApi.concat(Conexion.crearMenu);
+    CrearGrupo(menu : GrupoModelo){
+        const url = Conexion.UrlApi.concat(Conexion.crearGrupo);
         return this.http.post(url, menu, httpOptions);
     }
     
-    ModificarGrupo(menu : MenuModelo){
-        const url = Conexion.UrlApi.concat(Conexion.modificarMenu);
+    ModificarGrupo(menu : GrupoModelo){
+        const url = Conexion.UrlApi.concat(Conexion.modificarGrupo);
         return this.http.post(url, menu, httpOptions);
     }
 
-    EliminarGrupo(menu : MenuModelo){
-        const url = Conexion.UrlApi.concat(Conexion.eliminarMenu);
+    EliminarGrupo(menu : GrupoModelo){
+        const url = Conexion.UrlApi.concat(Conexion.eliminarGrupo);
         return this.http.post(url, menu, httpOptions);
+    }
+
+    ConsultarPermiso(){
+        const url = Conexion.UrlApi.concat(Conexion.consultarPermiso);
+        return this.http.post(url, "", httpOptions);
+    }    
+    
+    CrearPermiso(Permiso : PermisoModelo){
+        const url = Conexion.UrlApi.concat(Conexion.crearPermiso);
+        return this.http.post(url, Permiso, httpOptions);
+    }
+    
+    ModificarPermiso(Permiso : PermisoModelo){
+        const url = Conexion.UrlApi.concat(Conexion.modificarPermiso);
+        return this.http.post(url, Permiso, httpOptions);
+    }
+
+    EliminarPermiso(Permiso : PermisoModelo){
+        const url = Conexion.UrlApi.concat(Conexion.eliminarPermiso);
+        return this.http.post(url, Permiso, httpOptions);
     }
 }

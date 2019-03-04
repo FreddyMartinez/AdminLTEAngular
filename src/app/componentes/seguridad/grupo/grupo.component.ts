@@ -43,8 +43,10 @@ export class GrupoComponent implements OnInit {
   }
 
   ConsultarGrupos(){
+    this.spinner.show();
     this.servicio.ConsultarGrupo().subscribe(
       data=>{
+        this.spinner.hide();
         if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
           this.listaGrupo = data[Constantes.objetoRespuesta] as GrupoModelo[];
         }
@@ -76,6 +78,24 @@ export class GrupoComponent implements OnInit {
     this.itemEliminar = item;
   }
 
+  EliminarGrupo(){
+    this.spinner.show();
+    this.servicio.EliminarGrupo(this.itemEliminar).subscribe(
+      data=>{
+        this.spinner.hide();
+        this.modalEliminar.hide();
+        if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+          this.itemGrupo = undefined;
+          this.toastr.success(data[Constantes.objetoRespuesta] as string);
+          this.ConsultarGrupos();
+        }
+      },
+      error=>{
+        this.MuestraError(error);
+      }
+    );
+  }
+
   HabilitaGuardar(){
     if(this.itemGrupo.nombre != undefined && this.itemGrupo.nombre != ""
     && this.itemGrupo.descripcion != undefined && this.itemGrupo.descripcion != "" 
@@ -84,6 +104,38 @@ export class GrupoComponent implements OnInit {
       return true;
     }else{
       return false;
+    }
+  }
+
+  GuardarGrupo(){
+    this.spinner.show();
+    if(this.editarItem){
+      this.servicio.ModificarGrupo(this.itemGrupo).subscribe(
+        data=>{
+          this.spinner.hide();
+          if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+            this.itemGrupo = undefined;
+            this.toastr.success(data[Constantes.objetoRespuesta] as string);
+          }
+        },
+        error=>{
+          this.MuestraError(error);
+        }
+      );
+    }else{
+      this.servicio.CrearGrupo(this.itemGrupo).subscribe(
+        data=>{
+          this.spinner.hide();
+          if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+            this.itemGrupo = undefined;
+            this.toastr.success(data[Constantes.objetoRespuesta] as string);
+            this.ConsultarGrupos();
+          }
+        },
+        error=>{
+          this.MuestraError(error);
+        }
+      );
     }
   }
 

@@ -52,8 +52,10 @@ export class MenuComponent implements OnInit {
   }
 
   ConsultaListaItems(){
+    this.spinner.show();
     this.servicio.ConsultarMenu().subscribe(
       data=>{
+        this.spinner.hide();
         if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
           this.listaMenu = data[Constantes.objetoRespuesta] as MenuModelo[];
         }

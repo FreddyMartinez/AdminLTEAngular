@@ -48,9 +48,9 @@
             <br />
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="id_menu">Id Menú</label>
+                <label class="col-md-4 control-label" for="id_grupo">Id Grupo</label>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="id_menu" [(ngModel)]="itemGrupo.id" name="id_menu" disabled>                    
+                    <input type="text" class="form-control" id="id_grupo" [(ngModel)]="itemGrupo.id" name="id_grupo" disabled>                    
                 </div>
             </div>
 
@@ -87,6 +87,13 @@
             </div>
 
             <div class="form-group">
+                <label class="col-md-4 control-label" for="id_menu">Id Menú</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="id_menu" [(ngModel)]="itemGrupo.idMenu" name="id_menu" [disabled]="editarItem">                    
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="col-md-4 control-label" for="menu_activo">Activo</label>
                 <div class="col-md-4">
                     <input type="checkbox" id="menu_activo" [(ngModel)]="itemGrupo.activo" name="menu_activo">                    
@@ -96,7 +103,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-2">
-                    <button name="guardarBtn" type="submit" class="btn btn-success" (click)="GuardarMenu()" [disabled]="!HabilitaGuardar()">Guardar</button>
+                    <button name="guardarBtn" type="submit" class="btn btn-success" (click)="GuardarGrupo()" [disabled]="!HabilitaGuardar()">Guardar</button>
                 </div>
                 <label class="col-md-1 control-label" for="RegresarButton"></label>
                 <div class="col-md-2">
@@ -126,7 +133,7 @@
             </div>
             <div class="modal-footer">
                 <div class="col-md-6 text-center">
-                    <button type="button" class="btn btn-danger" (click)="EliminarMenu()">Eliminar</button>
+                    <button type="button" class="btn btn-danger" (click)="EliminarGrupo()">Eliminar</button>
                 </div>
                 <div class="col-md-6 text-center">                
                     <button type="button" class="btn btn-secondary" (click)="modalEliminar.hide()">Cancelar</button>
