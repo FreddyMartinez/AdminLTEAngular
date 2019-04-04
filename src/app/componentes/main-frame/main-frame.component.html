@@ -1,10 +1,10 @@
-<div class="skin-blue">
+<div class="skin-red">
   <div class="wrapper">
     <!-- Main Header -->
     <header class="main-header">
 
       <!-- Logo -->
-      <a href="index2.html" class="logo">
+      <a class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>POS</b></span>
         <!-- logo for regular state and mobile devices -->
@@ -14,7 +14,7 @@
       <!-- Header Navbar -->
       <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <a h class="sidebar-toggle" data-toggle="push-menu" role="button">
           <span class="sr-only">Toggle navigation</span>
         </a>
         <!-- Navbar Right Menu -->
@@ -23,11 +23,11 @@
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
               <!-- Menu Toggle Button -->
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <a  class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
                 <img src="./assets/img/invasor_zim.jpg" class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <span class="hidden-xs">Freddy Martínez</span>
+                <span class="hidden-xs">{{usuario.nombre}}</span>
               </a>
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
@@ -35,13 +35,13 @@
                   <img src="./assets/img/invasor_zim.jpg" class="img-circle" alt="User Image">
 
                   <p>
-                    Freddy Martínez - Ing. Mecatrónico.
-                    <small>Member since Nov. 2012</small>
+                    {{usuario.nombre}} - {{usuario.nombreRol}}.
+                    <small>Miembro desde Nov. 2012</small>
                   </p>
                 </li>
                 <!-- Menu Body -->
-                <li class="user-body">
-                  <div class="row">
+                <!-- <li class="user-body"> -->
+                  <!-- <div class="row">
                     <div class="col-xs-4 text-center">
                       <a href="#">Followers</a>
                     </div>
@@ -51,23 +51,23 @@
                     <div class="col-xs-4 text-center">
                       <a href="#">Friends</a>
                     </div>
-                  </div>
+                  </div> -->
                   <!-- /.row -->
-                </li>
+                <!-- </li> -->
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    <a class="btn btn-default btn-flat">Perfil</a>
                   </div>
                   <div class="pull-right">
-                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                    <a (click)="LogOut()" class="btn btn-default btn-flat">Cerrar Sesión</a>
                   </div>
                 </li>
               </ul>
             </li>
             <!-- Control Sidebar Toggle Button -->
             <li>
-              <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              <a data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
             </li>
           </ul>
         </div>
@@ -85,17 +85,37 @@
             <img src="./assets/img/invasor_zim.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p>Freddy Martínez</p>
+            <p>{{usuario.nombre}}</p>
             <!-- Status -->
-            <a href="#"><i class="fa fa-circle text-success"></i>Ing. Mecatrónico.</a>
+            <a><i class="fa fa-circle text-success"></i>{{usuario.nombreRol}}.</a>
           </div>
         </div>
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">Menú</li>
-          <li routerLinkActive="active" class="treeview">
-            <a href="#"><i class="fa fa-link"></i> <span>Seguridad</span>
+          <li routerLinkActive="active" class="treeview" *ngFor="let menu of listaMenu">
+            <a >
+              <i class="fa fa-lock"></i> <span>{{menu.nombre}}</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="treeview" *ngFor="let grupo of menu.grupos">
+                <a ><i class="fa fa-circle-o"></i> {{grupo.nombre}}
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li *ngFor="let permiso of grupo.permisos"><a routerLink="{{permiso.ruta}}"><i class="fa fa-circle-o"></i> {{permiso.nombre}} </a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- <li routerLinkActive="active" class="treeview">
+            <a href="#"><i class="fa fa-link"></i> <span>Seguridad Quemado</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -105,9 +125,7 @@
               <li><a routerLink="/grupo-form">Formulario Grupo</a></li>
               <li><a routerLink="/permiso-form">Formulario Permiso</a></li>
             </ul>
-          </li>
-          <li routerLinkActive="active"><a routerLink="/otra-pagina"><i class="fa fa-link"></i> <span>Otro Item</span></a></li>
-          <li routerLinkActive="active"><a routerLink="/otra-pagina"><i class="fa fa-link"></i> <span>Otro Item</span></a></li>
+          </li> -->
         </ul>
         <!-- /.sidebar-menu -->
       </section>
@@ -129,7 +147,7 @@
         Términos y condiciones
       </div>
       <!-- Default to the left -->
-      <strong>Copyright &copy; 2019 <a href="#">Company</a>.</strong> Version API: {{versionApi}}.
+      <strong>Copyright &copy; 2019 <a >Company</a>.</strong> Version API: {{versionApi}}.
     </footer>
 
     <!-- Control Sidebar -->

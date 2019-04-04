@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ServicioGlobal } from './servicios/global.servicio';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   
-  constructor(){}
+  constructor(
+    private servicioGlobal : ServicioGlobal
+  ){
+    if(this.servicioGlobal.token == null || this.servicioGlobal.token == 'null'){
+      this.servicioGlobal.InicioSesion();
+    }
+  }  
 }

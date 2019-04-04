@@ -8,5 +8,5 @@ export class Constantes {
     public static readonly mensajeError: string = 'error';
     public static readonly tituloError: string = 'Error: ';
     public static readonly connectionError: string = 'Problema de conexión, posible fallo de red.';
-
+    public static readonly loginError: string = 'Los datos ingresados no corresponden a un usuario registrado.';
 }

@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.login-page{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.icheck>label{
+    padding-left: 20px !important;
+}
