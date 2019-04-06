@@ -9,7 +9,9 @@ import { ModalModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AppRoutesModule } from './app.routes';
-import { SeguridadServicios } from './servicios/seguridad.servicio';
+import { AccesosServicios } from './servicios/accesos.servicio';
+import { UsuariosServicios } from './servicios/usuarios.servicio';
+import { ServicioGlobal } from './servicios/global.servicio';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { SeguridadServicios } from './servicios/seguridad.servicio';
     ToastrModule.forRoot()
   ],
   providers: [
-    SeguridadServicios
+    ServicioGlobal,
+    AccesosServicios,
+    UsuariosServicios
   ],
   bootstrap: [AppComponent]
 })

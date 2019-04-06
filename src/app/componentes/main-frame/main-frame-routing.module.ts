@@ -3,7 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainFrameComponent } from './main-frame.component';
 
 const routes: Routes = [
-  { path: '', component: MainFrameComponent, loadChildren: '../seguridad/seguridad.module#SeguridadModule'},  
+  { path: '', component: MainFrameComponent, children: [ 
+    { path: '', loadChildren: '../accesos/seguridad.module#SeguridadModule'},
+    { path: 'accesos',  loadChildren: '../accesos/seguridad.module#SeguridadModule'}, 
+    { path: 'usuarios', loadChildren: '../usuarios/usuarios.module#UsuariosModule'}
+  ]}
 ];
 
 @NgModule({
