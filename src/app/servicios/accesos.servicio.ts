@@ -100,4 +100,9 @@ export class AccesosServicios {
         const url = Conexion.UrlApi.concat(Conexion.consultarTiposGrupo);
         return this.http.post(url, "", httpOptions);
     }
+
+    ConsultaTiposPermiso(){
+        const url = Conexion.UrlApi.concat(Conexion.consultarTiposPermiso);
+        return this.http.post(url, "", httpOptions);
+    }
 }

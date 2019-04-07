@@ -78,13 +78,13 @@ export class PerfilComponent implements OnInit {
 
   NuevoItem(){
     this.editarItem = false;
-    this.tipoForm = "creación de ítems del menú";
+    this.tipoForm = "creación de perfil";
     this.itemPerfil = new PerfilModelo();
   }
 
   CargarItem(item: PerfilModelo){
     this.editarItem = true;
-    this.tipoForm = "modificación del menú";
+    this.tipoForm = "modificación del perfil";
     this.itemPerfil = item;
   }
 

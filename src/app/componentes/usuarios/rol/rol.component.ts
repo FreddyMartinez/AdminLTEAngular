@@ -80,13 +80,13 @@ export class RolComponent implements OnInit {
 
   NuevoItem(){
     this.editarItem = false;
-    this.tipoForm = "creación de ítems del menú";
+    this.tipoForm = "creación de rol";
     this.itemRol = new RolModelo();
   }
 
   CargarItem(item: RolModelo){
     this.editarItem = true;
-    this.tipoForm = "modificación del menú";
+    this.tipoForm = "modificación del rol";
     this.itemRol = item;
   }
 

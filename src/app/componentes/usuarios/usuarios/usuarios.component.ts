@@ -35,6 +35,7 @@ export class UsuariosComponent implements OnInit {
   public editarItem : boolean;
   public listaRoles: ModeloGenerico[];
   public listaTipoDocu: ModeloGenerico[];
+  public listaClientes: ModeloGenerico[];
 
   constructor(
     public servicio: UsuariosServicios,
@@ -75,14 +76,18 @@ export class UsuariosComponent implements OnInit {
   ConsultarListasSeleccion(){
     forkJoin([
       this.servicio.ConsultarTiposRol(),
-      this.servicio.ConsultarTiposDocumento()
+      this.servicio.ConsultarTiposDocumento(),
+      this.servicio.ConsultaClientes()
     ]).subscribe(
-      ([roles, documentos])=>{
+      ([roles, documentos, clientes])=>{
         if (roles[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
           this.listaRoles = roles[Constantes.objetoRespuesta] as ModeloGenerico[];
         }
         if (documentos[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
           this.listaTipoDocu = documentos[Constantes.objetoRespuesta] as ModeloGenerico[];
+        }
+        if (clientes[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+          this.listaClientes = clientes[Constantes.objetoRespuesta] as ModeloGenerico[];
         }
       },
       error=>{

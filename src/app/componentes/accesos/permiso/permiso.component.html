@@ -73,7 +73,9 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="tipo_permiso">Tipo</label>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" id="tipo_permiso" [(ngModel)]="itemPermiso.idTipo" name="tipo_permiso" [disabled]="editarItem">                    
+                    <select class="form-control" id="tipo_permiso" [(ngModel)]="itemPermiso.idTipo" name="tipo_permiso" [disabled]="editarItem">
+                        <option *ngFor="let perm of listaTipoPermiso" [value]="perm.llave">{{perm.valor}}</option>
+                    </select>         
                 </div>
             </div>
 

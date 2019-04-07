@@ -10,3 +10,6 @@
 .icheck>label{
     padding-left: 20px !important;
 }
+.content-wrapper{
+    background-color: #fff;
+}

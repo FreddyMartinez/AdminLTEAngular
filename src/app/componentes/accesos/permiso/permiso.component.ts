@@ -7,6 +7,7 @@ import { AccesosServicios } from 'src/app/servicios/accesos.servicio';
 import { PermisoModelo } from 'src/app/modelos/permiso.modelo';
 import { Constantes } from 'src/app/util/constantes';
 import { ModeloGenerico } from 'src/app/modelos/modelo.generico';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-permiso',
@@ -32,6 +33,7 @@ export class PermisoComponent implements OnInit {
   public itemPermiso : PermisoModelo;
   public itemEliminar : PermisoModelo;
   public listaTipoGrupo : ModeloGenerico[];
+  public listaTipoPermiso : ModeloGenerico[];
   public editarItem : boolean;
   constructor(
     public servicio: AccesosServicios,
@@ -61,10 +63,17 @@ export class PermisoComponent implements OnInit {
   }
 
   ConsultaTiposGrupo(){
-    this.servicio.ConsultaTiposGrupo().subscribe(
-      data=>{
-        if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-          this.listaTipoGrupo = data[Constantes.objetoRespuesta] as ModeloGenerico[];
+    forkJoin([
+      this.servicio.ConsultaTiposGrupo(),
+      this.servicio.ConsultaTiposPermiso()
+    ])
+    .subscribe(
+      ([grupos,permisos])=>{
+        if (grupos[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+          this.listaTipoGrupo = grupos[Constantes.objetoRespuesta] as ModeloGenerico[];
+        }
+        if (permisos[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+          this.listaTipoPermiso = permisos[Constantes.objetoRespuesta] as ModeloGenerico[];
         }
       },
       error=>{
@@ -75,13 +84,13 @@ export class PermisoComponent implements OnInit {
 
   NuevoItem(){
     this.editarItem = false;
-    this.tipoForm = "creación de ítems del menú";
+    this.tipoForm = "creación de permiso";
     this.itemPermiso = new PermisoModelo();
   }
 
   CargarItem(item: PermisoModelo){
     this.editarItem = true;
-    this.tipoForm = "modificación del menú";
+    this.tipoForm = "modificación del permiso";
     this.itemPermiso = item;
   }
 
