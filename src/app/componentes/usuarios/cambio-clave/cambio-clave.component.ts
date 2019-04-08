@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ServicioGlobal } from 'src/app/servicios/global.servicio';
+import { UsuarioModelo } from 'src/app/modelos/usuario.modelo';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { UsuariosServicios } from 'src/app/servicios/usuarios.servicio';
+import { Constantes } from 'src/app/util/constantes';
 
 @Component({
   selector: 'cambio-clave',
@@ -6,10 +12,58 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cambio-clave.component.css']
 })
 export class CambioClaveComponent implements OnInit {
-
-  constructor() { }
+  public claveO: string;
+  public claveN: string;
+  public claveR: string;
+  public usuario: UsuarioModelo;
+  constructor(
+    public servicioGlobal: ServicioGlobal,
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService,
+    public servicio: UsuariosServicios
+  ) { }
 
   ngOnInit() {
+  }
+
+  CambioClave() {
+    this.spinner.show();
+    this.servicioGlobal.obtenerUsuario();
+    this.usuario = JSON.parse(localStorage.getItem("Usuario"));
+    console.log(this.usuario.clave);
+      if (this.claveN === this.claveR) {
+        let usr: UsuarioModelo = new UsuarioModelo(this.usuario.usuario, this.claveO, this.claveR);
+        this.servicio.CambioClave(usr).subscribe(
+          data => {
+            if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+              this.spinner.hide();
+              this.toastr.success(Constantes.claveExito, Constantes.tituloExito);
+              this.LimpiarCampos();
+            }
+          },
+          error => {
+            this.MuestraError(error);
+            this.spinner.hide();
+          }
+        );
+      } else {
+        this.toastr.error(Constantes.claveError, Constantes.tituloError);
+        this.spinner.hide();
+      }
+  }
+  LimpiarCampos() {
+    this.claveO = undefined;
+    this.claveN = undefined;
+    this.claveR = undefined;
+  }
+
+  MuestraError(error: any) {
+    this.spinner.hide();
+    if (error[Constantes.statusError] == 0) {
+      this.toastr.error(Constantes.connectionError, Constantes.tituloError);
+    } else {
+      this.toastr.error(error[Constantes.mensajeError][Constantes.mensajeRespuesta], Constantes.tituloError);
+    }
   }
 
 }
