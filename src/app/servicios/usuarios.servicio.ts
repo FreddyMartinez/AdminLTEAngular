@@ -115,4 +115,9 @@ export class UsuariosServicios {
         const url = Conexion.UrlApi.concat(Conexion.consultarTiposDocumento);
         return this.http.post(url, "", httpOptions);
     }
+
+    CambioClave(clave: UsuarioModelo){
+        const url = Conexion.UrlApi.concat(Conexion.cambioClave);
+        return this.http.post(url, clave, httpOptions);
+    }
 }

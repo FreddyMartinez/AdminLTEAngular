@@ -41,6 +41,7 @@ export class Conexion{
     public static readonly crearPerfilRol : string = 'Usuarios/crearPerfilRol';
     public static readonly modificarPerfilRol : string = 'Usuarios/modificarPerfilRol';
     public static readonly eliminarPerfilRol : string = 'Usuarios/eliminarPerfilRol';
+    public static readonly cambioClave : string ='Usuarios/cambioClave';
 
     public static readonly consultarUsuarios : string = 'Usuarios/consultarUsuarios';
     public static readonly crearUsuario : string = 'Usuarios/crearUsuario';
