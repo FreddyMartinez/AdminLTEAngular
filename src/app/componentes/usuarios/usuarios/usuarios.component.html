@@ -116,7 +116,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="cliente">Rol</label>
+                <label class="col-md-4 control-label" for="cliente">Cliente</label>
                 <div class="col-md-4">
                     <select class="form-control" id="cliente" [(ngModel)]="itemUsuario.cliente" #cliente="ngModel" required>
                         <option *ngFor="let rol of listaClientes" [value]="rol.llave">{{rol.valor}}</option>

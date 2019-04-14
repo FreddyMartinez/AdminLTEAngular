@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: '', component: MainFrameComponent, children: [ 
     { path: '', loadChildren: '../accesos/seguridad.module#SeguridadModule'},
     { path: 'accesos',  loadChildren: '../accesos/seguridad.module#SeguridadModule'}, 
-    { path: 'usuarios', loadChildren: '../usuarios/usuarios.module#UsuariosModule'}
+    { path: 'usuarios', loadChildren: '../usuarios/usuarios.module#UsuariosModule'}, 
+    { path: 'clientes', loadChildren: '../cliente/cliente.module#ClienteModule'}
   ]}
 ];
 

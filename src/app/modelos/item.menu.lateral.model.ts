@@ -2,6 +2,7 @@ export class ItemMenuLateral{
     public id: number;
     public nombre: string;
     public grupos: GrupoMenuLateral[];
+    public icono: string;
     constructor(
         id: number,
         nombre: string,

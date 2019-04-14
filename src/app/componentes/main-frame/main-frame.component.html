@@ -93,7 +93,7 @@
           <li class="header">Menú</li>
           <li routerLinkActive="active" class="treeview" *ngFor="let menu of listaMenu">
             <a >
-              <i class="fa fa-lock"></i> <span>{{menu.nombre}}</span>
+              <i class="fa {{menu.icono}}"></i> <span>{{menu.nombre}}</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
