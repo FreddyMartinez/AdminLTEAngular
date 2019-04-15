@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sucursal',
+  selector: 'sucursal-page',
   templateUrl: './sucursal.component.html',
   styleUrls: ['./sucursal.component.css']
 })

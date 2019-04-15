@@ -10,6 +10,7 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { EmpresaComponent } from './empresa/empresa.component';
 import { SucursalComponent } from './sucursal/sucursal.component';
 import { ClientesServicios } from 'src/app/servicios/clientes.servicio';
+import { ProductosComponent } from './productos/productos.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { ClientesServicios } from 'src/app/servicios/clientes.servicio';
   providers: [
     ClientesServicios
   ],
-  declarations: [ClienteComponent, EmpresaComponent, SucursalComponent]
+  declarations: [ClienteComponent, EmpresaComponent, SucursalComponent, ProductosComponent]
 })
 export class ClienteModule { }
