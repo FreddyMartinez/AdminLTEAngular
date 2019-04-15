@@ -51,4 +51,8 @@ export class Conexion{
     public static readonly consultarTiposRol : string = 'Usuarios/consultarTiposRol';
     public static readonly consultarTiposDocumento : string = 'Usuarios/consultarTiposDocumento';
     //#endregion
+
+    //#region Clientes
+    public static readonly consultarClientes : string = 'Cliente/consultarClientes';
+    //#endregion
 }

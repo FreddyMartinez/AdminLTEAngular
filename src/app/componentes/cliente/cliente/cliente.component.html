@@ -1,0 +1,190 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+      Cliente
+      <small>Formulario de modificación de clientes</small>
+  </h1>
+  <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i>Cliente</a></li>
+      <li class="active">Prueba</li>
+      <li class="active">Cliente</li>
+  </ol>
+</section>
+
+<section class="content container-fluid">
+  <fieldset>
+      <p class="centered">Lista de clientes.</p>
+      <div class="table-responsive">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Cliente</th>
+                      <th>Correo</th>
+                      <th>Modificar</th>
+                      <th>Eliminar</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let cliente of listaCliente">
+                      <td>{{cliente.nombre}} {{cliente.apellido}}</td>
+                      <td>{{cliente.email}}</td>
+                      <td><button class="btn btn-warning" (click)="CargarItem(cliente)"><i class="fa fa-pencil"></i></button></td>
+                      <td><button class="btn btn-danger" (click)="AbreModal(cliente)"><i class="fa fa-trash"></i></button></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div>
+          <button class="btn btn-success" title="Añadir ítem" (click)="NuevoItem()"><i class="fa fa-plus-square"></i></button>
+      </div>
+  </fieldset>
+</section>
+
+<!-- Main content -->
+<!-- <section class="content container-fluid" @myInsertRemoveTrigger *ngIf="itemCliente">
+  <fieldset>
+      <div class="form-horizontal">
+
+          <p class="centered">Bienvenido al formulario de {{tipoForm}}.</p>
+          <br />
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="id_cliente">Cliente</label>
+              <div class="col-md-4">
+                  <input type="text" class="form-control" id="id_cliente" [(ngModel)]="itemCliente.cliente" name="id_cliente" [disabled]="editarItem" required>                    
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="nombre">Nombres</label>
+              <div class="col-md-4">
+                  <input type="text" class="form-control" id="nombre" [(ngModel)]="itemCliente.nombre" #nombre="ngModel" autofocus required>
+                  <span *ngIf="!nombre.valid && nombre.touched" class="warning-message">El nombre es requerido</span>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="apellidosInput">Apellidos</label>
+              <div class="col-md-4">
+                  <input type="text" class="form-control" id="apellidosInput" [(ngModel)]="itemCliente.apellidos" #apellidosInput="ngModel" required>
+                  <span *ngIf="!apellidosInput.valid && apellidosInput.touched" class="warning-message">Los apellidos son requeridos</span>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="tipoDocumento">Tipo de documento</label>
+              <div class="col-md-4">
+                  <select class="form-control" id="tipoDocumento" [(ngModel)]="itemCliente.tipoDocumento" #tipoDocumento="ngModel" required>
+                      <option *ngFor="let tipoDoc of listaTipoDocu" [value]="tipoDoc.llave">{{tipoDoc.valor}}</option>
+                  </select>
+                  <span *ngIf="!tipoDocumento.valid && tipoDocumento.touched" class="warning-message">El tipo de documento de identidad es requerido</span>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="documento">Número de documento</label>
+              <div class="col-md-4">
+                  <input type="text" class="form-control" id="documento" [(ngModel)]="itemCliente.documento" #documento="ngModel" required>
+                  <span *ngIf="!documento.valid && documento.touched" class="warning-message">El documento de identidad es requerido</span>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="email_cliente">Correo</label>
+              <div class="col-md-4">
+                  <input type="text" class="form-control" id="email_cliente" [(ngModel)]="itemCliente.email" #email_cliente="ngModel" [disabled]="editarItem" required>                    
+                  <span *ngIf="!email_cliente.valid && email_cliente.touched" class="warning-message">El correo es requerido</span>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="tel_cliente">Teléfono</label>
+              <div class="col-md-4">
+                  <input type="text" class="form-control" id="tel_cliente" [(ngModel)]="itemCliente.telefono" name="tel_cliente" #tel_cliente="ngModel" required>                    
+                  <span *ngIf="!tel_cliente.valid && tel_cliente.touched" class="warning-message">El teléfono es requerido</span>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="rol_cliente">Rol</label>
+              <div class="col-md-4">
+                  <select class="form-control" id="rol_cliente" [(ngModel)]="itemCliente.rol" #rol_cliente="ngModel" required>
+                      <option *ngFor="let rol of listaRoles" [value]="rol.llave">{{rol.valor}}</option>
+                  </select>
+                  <span *ngIf="!rol_cliente.valid && rol_cliente.touched" class="warning-message">El rol es requerido</span>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="cliente">Cliente</label>
+              <div class="col-md-4">
+                  <select class="form-control" id="cliente" [(ngModel)]="itemCliente.cliente" #cliente="ngModel" required>
+                      <option *ngFor="let rol of listaClientes" [value]="rol.llave">{{rol.valor}}</option>
+                  </select>
+                  <span *ngIf="!cliente.valid && cliente.touched" class="warning-message">El rol es requerido</span>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="clave_cliente">Contraseña</label>
+              <div class="col-md-4">
+                  <input type="password" class="form-control" id="clave_cliente" [(ngModel)]="itemCliente.clave" name="clave_cliente" #clave_cliente="ngModel" required>                    
+                  <span *ngIf="!clave_cliente.valid && clave_cliente.touched" class="warning-message">La contraseña es requerida</span>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="cliente_activo">Activo</label>
+              <div class="col-md-4">
+                  <input type="checkbox" id="cliente_activo" [(ngModel)]="itemCliente.activo" name="cliente_activo">                    
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label"></label>
+              <div class="col-md-2">
+                  <button name="guardarBtn" type="submit" class="btn btn-success" (click)="GuardarCliente()" [disabled]="!HabilitaGuardar()">Guardar</button>
+              </div>
+              <label class="col-md-1 control-label" for="RegresarButton"></label>
+              <div class="col-md-2">
+                  <button name="RegresarButton" class="btn btn-danger" (click)="CancelaItem()">Cancelar</button>
+              </div>
+
+          </div>
+
+      </div>
+  </fieldset>
+
+</section> -->
+<!-- /.content -->
+<!-- modal eliminar -->
+<!-- <div class="modal fade" bsModal #modalEliminar="bs-modal" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminar"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="modalEliminar">Eliminar Ítem del Menú</h5>
+              <button type="button" class="close" aria-label="Close" (click)="modalEliminar.hide()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="form-group" *ngIf="itemEliminar">
+                  <p>Está seguro que desea eliminar el ítem {{itemEliminar.nombre}}?</p>                    
+              </div>
+          </div>
+          <div class="modal-footer">
+              <div class="col-md-6 text-center">
+                  <button type="button" class="btn btn-danger" (click)="EliminarCliente()">Eliminar</button>
+              </div>
+              <div class="col-md-6 text-center">                
+                  <button type="button" class="btn btn-secondary" (click)="modalEliminar.hide()">Cancelar</button>
+              </div>                
+          </div>
+      </div>
+  </div>
+</div> -->
+
+<ngx-spinner  bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-fussion" fullScreen = "true">
+  <p style="color: white" > Cargando... </p>
+</ngx-spinner>
