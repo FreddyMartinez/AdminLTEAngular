@@ -1,6 +1,6 @@
 export class Conexion{
     public static readonly UrlApi : string = 'http://servicios.wanfrankj.com/';
-    // public static readonly UrlApi : string = 'http://localhost:55565/';
+    // public static readonly UrlApi : string = 'http://localhost/SistemaPOS.Servicios/';
 
     //#region Accesos
     public static readonly versionBack: string = 'Accesos/versionBack';

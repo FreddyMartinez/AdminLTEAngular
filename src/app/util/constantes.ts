@@ -11,6 +11,6 @@ export class Constantes {
     public static readonly connectionError: string = 'Problema de conexión, posible fallo de red.';
     public static readonly loginError: string = 'Los datos ingresados no corresponden a un usuario registrado.';
     public static readonly claveExito: string = 'Contraseña cambiada exitosamente.';
-    public static readonly claveError: string = 'La nueva contraseña no coincide con la confimación ';
+    public static readonly claveError: string = 'La nueva contraseña no coincide con la confirmación ';
     public static readonly claveIncorrecta: string = 'Contraseña incorrecta. '
 }

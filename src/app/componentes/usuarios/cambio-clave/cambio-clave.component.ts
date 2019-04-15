@@ -21,36 +21,34 @@ export class CambioClaveComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     public servicio: UsuariosServicios
-  ) { }
+  ) { 
+    this.usuario = this.servicioGlobal.getUsuario();
+  }
 
   ngOnInit() {
   }
 
   CambioClave() {
-    this.spinner.show();
-    this.servicioGlobal.obtenerUsuario();
-    this.usuario = JSON.parse(localStorage.getItem("Usuario"));
-    console.log(this.usuario.clave);
-      if (this.claveN === this.claveR) {
-        let usr: UsuarioModelo = new UsuarioModelo(this.usuario.usuario, this.claveO, this.claveR);
-        this.servicio.CambioClave(usr).subscribe(
-          data => {
-            if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-              this.spinner.hide();
-              this.toastr.success(Constantes.claveExito, Constantes.tituloExito);
-              this.LimpiarCampos();
-            }
-          },
-          error => {
-            this.MuestraError(error);
+    if (this.claveN === this.claveR) {
+      this.spinner.show();
+      let usr: UsuarioModelo = new UsuarioModelo(this.usuario.usuario, this.claveO, this.claveR);
+      this.servicio.CambioClave(usr).subscribe(
+        data => {
+          if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
             this.spinner.hide();
+            this.toastr.success(data[Constantes.objetoRespuesta] as string);
+            this.LimpiarCampos();
           }
-        );
-      } else {
-        this.toastr.error(Constantes.claveError, Constantes.tituloError);
-        this.spinner.hide();
-      }
+        },
+        error => {
+          this.MuestraError(error);
+        }
+      );
+    } else {
+      this.toastr.error(Constantes.claveError, Constantes.tituloError);
+    }
   }
+
   LimpiarCampos() {
     this.claveO = undefined;
     this.claveN = undefined;
@@ -65,5 +63,4 @@ export class CambioClaveComponent implements OnInit {
       this.toastr.error(error[Constantes.mensajeError][Constantes.mensajeRespuesta], Constantes.tituloError);
     }
   }
-
 }
