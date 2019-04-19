@@ -21,17 +21,17 @@ export class ClientesServicios {
     }
 
     ModificarCliente(cliente: ClienteModelo){
-        const url = Conexion.UrlApi.concat(Conexion.consultarClientes);
+        const url = Conexion.UrlApi.concat(Conexion.editarCliente);
         return this.http.post(url, cliente, httpOptions);
     }
 
     CrearCliente(cliente: ClienteModelo){
-        const url = Conexion.UrlApi.concat(Conexion.consultarClientes);
+        const url = Conexion.UrlApi.concat(Conexion.crearCliente);
         return this.http.post(url, cliente, httpOptions);
     }
 
     EliminarCliente(cliente: ClienteModelo){
-        const url = Conexion.UrlApi.concat(Conexion.consultarClientes);
+        const url = Conexion.UrlApi.concat(Conexion.eliminarCliente);
         return this.http.post(url, cliente, httpOptions);
     }
     //#endregion

@@ -9,6 +9,8 @@ import { ModeloGenerico } from 'src/app/modelos/modelo.generico';
 import { ClientesServicios } from 'src/app/servicios/clientes.servicio';
 import { ParametroConsulta } from 'src/app/modelos/parametro.consulta.modelo';
 import { ServicioGlobal } from 'src/app/servicios/global.servicio';
+import { UsuariosServicios } from 'src/app/servicios/usuarios.servicio';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'cliente-form',
@@ -27,17 +29,19 @@ import { ServicioGlobal } from 'src/app/servicios/global.servicio';
 })
 export class ClienteComponent implements OnInit {
   @ViewChild('modalEliminar') modalEliminar: ModalDirective;
+  @ViewChild('modalCreaModifica') modalCreaModifica: ModalDirective;
   public tipoForm : string;
   public listaCliente : ClienteModelo[];
   public itemCliente : ClienteModelo;
   public itemEliminar : ClienteModelo;
+  public clienteDetalle : ClienteModelo;
   public editarItem : boolean;
   public listaRoles: ModeloGenerico[];
   public listaTipoDocu: ModeloGenerico[];
-  public listaClientes: ModeloGenerico[];
 
   constructor(
     public servicioGlobal: ServicioGlobal,
+    public servicioUsr : UsuariosServicios,
     public servicio: ClientesServicios,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
@@ -75,48 +79,46 @@ export class ClienteComponent implements OnInit {
   }
 
   ConsultarListasSeleccion(){
-    // forkJoin([
-    //   this.servicio.ConsultarTiposRol(),
-    //   this.servicio.ConsultarTiposDocumento(),
-    //   this.servicio.ConsultaClientes()
-    // ]).subscribe(
-    //   ([roles, documentos, clientes])=>{
-    //     if (roles[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-    //       this.listaRoles = roles[Constantes.objetoRespuesta] as ModeloGenerico[];
-    //     }
-    //     if (documentos[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-    //       this.listaTipoDocu = documentos[Constantes.objetoRespuesta] as ModeloGenerico[];
-    //     }
-    //     if (clientes[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-    //       this.listaClientes = clientes[Constantes.objetoRespuesta] as ModeloGenerico[];
-    //     }
-    //   },
-    //   error=>{
-    //     this.MuestraError(error);
-    //   }
-    // );
-    
+    forkJoin([
+      this.servicioUsr.ConsultarTiposDocumento()
+    ]).subscribe(
+      ([documentos])=>{
+        if (documentos[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+          this.listaTipoDocu = documentos[Constantes.objetoRespuesta] as ModeloGenerico[];
+        }
+      },
+      error=>{
+        this.MuestraError(error);
+      }
+    );
+  }
+
+  VerDetalle(cliente : ClienteModelo){
+    this.clienteDetalle = cliente;
   }
 
   NuevoItem(){
     this.editarItem = false;
+    this.modalCreaModifica.show();
     this.tipoForm = "creación de Clientes";
     this.itemCliente = new ClienteModelo();
   }
 
-  CargarItem(item: ClienteModelo){
+  CargarItem(){
     this.editarItem = true;
+    this.modalCreaModifica.show();
     this.tipoForm = "modificación de Cliente";
-    this.itemCliente = item;
+    this.itemCliente = this.clienteDetalle;
   }
 
   CancelaItem(){
+    this.modalCreaModifica.hide();
     this.itemCliente = undefined;
   }
 
-  AbreModal(item: ClienteModelo){
+  AbreModal(){
     this.modalEliminar.show();
-    this.itemEliminar = item;
+    this.itemEliminar = this.clienteDetalle;
   }
 
   EliminarCliente(){
@@ -151,6 +153,7 @@ export class ClienteComponent implements OnInit {
 
   GuardarCliente(){
     this.spinner.show();
+    this.itemCliente.usuario = this.servicioGlobal.getUsuario().usuario;
     if(this.editarItem){
       this.servicio.ModificarCliente(this.itemCliente).subscribe(
         data=>{

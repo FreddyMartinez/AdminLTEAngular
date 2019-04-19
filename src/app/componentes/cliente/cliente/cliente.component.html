@@ -14,42 +14,104 @@
 <section class="content container-fluid">
     <fieldset>
         <p class="centered">Lista de clientes.</p>
+        
+        <div>
+
+        </div>
+        <div>
+            <button class="btn btn-success" title="Añadir ítem" (click)="NuevoItem()">
+                <i class="fa fa-plus-square"></i></button>
+        </div>
+
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Cliente</th>
-                        <th>Correo</th>
-                        <th>Modificar</th>
-                        <th>Eliminar</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Tipo de documento</th>
+                        <th>Documento</th>
+                        <th>Telefono</th>
+                        <th>Activo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cliente of listaCliente">
-                        <td>{{cliente.nombre}} {{cliente.apellido}}</td>
-                        <td>{{cliente.email}}</td>
-                        <td><button class="btn btn-warning" (click)="CargarItem(cliente)"><i
-                                    class="fa fa-pencil"></i></button></td>
-                        <td><button class="btn btn-danger" (click)="AbreModal(cliente)"><i
-                                    class="fa fa-trash"></i></button></td>
+                    <tr *ngFor="let cliente of listaCliente" (click)="VerDetalle(cliente)">
+                        <td>{{cliente.idCliente}}</td>
+                        <td>{{cliente.nombre}}</td>
+                        <td>{{cliente.apellido}}</td>
+                        <td>{{cliente.tipoDocumento}}</td>
+                        <td>{{cliente.documento}}</td>
+                        <td>{{cliente.telefono}}</td>
+                        <td>{{cliente.activo}}</td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div>
-            <button class="btn btn-success" title="Añadir ítem" (click)="NuevoItem()"><i
-                    class="fa fa-plus-square"></i></button>
         </div>
     </fieldset>
 </section>
 
 <!-- Main content -->
-<section class="content container-fluid" @myInsertRemoveTrigger *ngIf="itemCliente">
+<section class="content container-fluid" @myInsertRemoveTrigger *ngIf="clienteDetalle">
     <fieldset>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <p>Información del cliente</p>
+
+            <table class="table">
+                <tr>
+                    <td>
+                        Código
+                    </td>
+                    <td>
+                        {{clienteDetalle.idCliente}}
+                    </td>
+                </tr>
+                <tr>        
+                    <td>
+                        Email
+                    </td>
+                    <td>
+                        {{clienteDetalle.email}}
+                    </td>
+                </tr>
+                <tr>        
+                    <td>
+                        Cliente Principal
+                    </td>
+                    <td>
+                        {{clienteDetalle.clientePrincipal}}
+                    </td>
+                </tr>
+                <tr>        
+                    <td>
+                        Cliente Referidor
+                    </td>
+                    <td>
+                        {{clienteDetalle.clienteReferidor}}
+                    </td>
+                </tr>
+                <tr>        
+                    <td>
+                        Usuario de Creación
+                    </td>
+                    <td>
+                        {{clienteDetalle.usuario}}
+                    </td>
+                </tr>
+            </table>
+            <div class="row form-inline">
+                <div class="col-md-6 centered">
+                    <button class="btn btn-warning" (click)="CargarItem()"><i
+                        class="fa fa-pencil"></i></button>
+                </div>
+                <div class="col-md-6 centered">
+                    <button class="btn btn-danger" (click)="AbreModal()"><i
+                        class="fa fa-trash"></i></button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-8">
             <ul class="nav nav-tabs">
                 <li class="nav-item" routerLinkActive="active">
                   <a class="nav-link" data-toggle="tab" href="#empresas"> Empresas </a>
@@ -67,7 +129,7 @@
                     <empresa-page></empresa-page>
                 </div>
                 <div id="sucursales" class="tab-pane fade">
-                    <sucursal-page></sucursal-page>
+                    <sucursal-page [cliente]="clienteDetalle"></sucursal-page>
                 </div>
                 <div id="productos" class="tab-pane fade">
                     <productos-page></productos-page>
@@ -79,7 +141,7 @@
 </section>
 <!-- /.content -->
 
-<!-- modal eliminar -->
+<!-- modal crear o modificar -->
 <div class="modal fade" bsModal #modalCreaModifica="bs-modal" id="modalCreaModifica" tabindex="-1" role="dialog"
     aria-labelledby="modalCreaModifica" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -92,14 +154,14 @@
             </div>
             <div class="modal-body">
 
-                <div class="form-horizontal">
+                <div class="form-horizontal" *ngIf="itemCliente">
 
                     <p class="centered">Bienvenido al formulario de {{tipoForm}}.</p>
                     <br />
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="id_cliente">Cliente</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="id_cliente" [(ngModel)]="itemCliente.cliente"
+                            <input type="text" class="form-control" id="id_cliente" [(ngModel)]="itemCliente.idCliente"
                                 name="id_cliente" [disabled]="editarItem" required>
                         </div>
                     </div>
@@ -118,7 +180,7 @@
                         <label class="col-md-4 control-label" for="apellidosInput">Apellidos</label>
                         <div class="col-md-4">
                             <input type="text" class="form-control" id="apellidosInput"
-                                [(ngModel)]="itemCliente.apellidos" #apellidosInput="ngModel" required>
+                                [(ngModel)]="itemCliente.apellido" #apellidosInput="ngModel" required>
                             <span *ngIf="!apellidosInput.valid && apellidosInput.touched" class="warning-message">Los
                                 apellidos son requeridos</span>
                         </div>
@@ -166,14 +228,59 @@
                                 es requerido</span>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="dir_cliente">Dirección</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="dir_cliente" [(ngModel)]="itemCliente.direccion"
+                                name="dir_cliente" #dir_cliente="ngModel" required>
+                            <span *ngIf="!dir_cliente.valid && dir_cliente.touched" class="warning-message">La dirección
+                                es requerida</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="dir_cliente">Barrio</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="dir_cliente" [(ngModel)]="itemCliente.barrio"
+                                name="dir_cliente" #dir_cliente="ngModel" required>
+                            <span *ngIf="!dir_cliente.valid && dir_cliente.touched" class="warning-message">El barrio
+                                es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="cliente_principal">Cliente Principal</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="cliente_principal" [(ngModel)]="itemCliente.clientePrincipal"
+                                name="cliente_principal" #cliente_principal="ngModel" required>
+                            <span *ngIf="!cliente_principal.valid && cliente_principal.touched" class="warning-message">El cliente principal es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="cliente_referidor">Cliente Referidor</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="cliente_referidor" [(ngModel)]="itemCliente.clienteReferidor"
+                                name="cliente_referidor" #cliente_referidor="ngModel" required>
+                            <span *ngIf="!cliente_referidor.valid && cliente_referidor.touched" class="warning-message">El cliente referidor es requerido</span>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="cliente_activo">Activo</label>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="cliente_activo" [(ngModel)]="itemCliente.activo" name="cliente_activo">                    
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="col-md-6 text-center">
-                    <button type="button" class="btn btn-danger" (click)="EliminarCliente()">Eliminar</button>
+                    <button type="button" class="btn btn-danger" (click)="GuardarCliente()">Guardar</button>
                 </div>
                 <div class="col-md-6 text-center">
-                    <button type="button" class="btn btn-secondary" (click)="modalCreaModifica.hide()">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" (click)="CancelaItem()">Cancelar</button>
                 </div>
             </div>
         </div>
