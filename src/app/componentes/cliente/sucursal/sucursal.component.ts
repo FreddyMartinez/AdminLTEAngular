@@ -13,6 +13,7 @@ export class SucursalComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("sucursal");
     console.log(this.cliente);
   }
 

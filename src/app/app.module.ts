@@ -12,6 +12,7 @@ import { AppRoutesModule } from './app.routes';
 import { AccesosServicios } from './servicios/accesos.servicio';
 import { UsuariosServicios } from './servicios/usuarios.servicio';
 import { ServicioGlobal } from './servicios/global.servicio';
+import { EmpresasServicios } from './servicios/empresas.servicio';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ServicioGlobal } from './servicios/global.servicio';
   providers: [
     ServicioGlobal,
     AccesosServicios,
-    UsuariosServicios
+    UsuariosServicios,
+    EmpresasServicios
   ],
   bootstrap: [AppComponent]
 })

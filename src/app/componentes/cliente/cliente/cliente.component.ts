@@ -11,6 +11,8 @@ import { ParametroConsulta } from 'src/app/modelos/parametro.consulta.modelo';
 import { ServicioGlobal } from 'src/app/servicios/global.servicio';
 import { UsuariosServicios } from 'src/app/servicios/usuarios.servicio';
 import { forkJoin } from 'rxjs';
+import { EmpresasServicios } from 'src/app/servicios/empresas.servicio';
+import { debug } from 'util';
 
 @Component({
   selector: 'cliente-form',
@@ -43,6 +45,7 @@ export class ClienteComponent implements OnInit {
     public servicioGlobal: ServicioGlobal,
     public servicioUsr : UsuariosServicios,
     public servicio: ClientesServicios,
+    public empresaService: EmpresasServicios,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) { 
@@ -153,6 +156,7 @@ export class ClienteComponent implements OnInit {
 
   GuardarCliente(){
     this.spinner.show();
+    debugger;
     this.itemCliente.usuario = this.servicioGlobal.getUsuario().usuario;
     if(this.editarItem){
       this.servicio.ModificarCliente(this.itemCliente).subscribe(
@@ -169,6 +173,7 @@ export class ClienteComponent implements OnInit {
         }
       );
     }else{
+      
       this.servicio.CrearCliente(this.itemCliente).subscribe(
         data=>{
           this.spinner.hide();

@@ -8,7 +8,7 @@ export class EmpresaModelo {
     contacto: string;
     telefonoContacto: string;
     emailContacto: string;
-    activo: boolean;
+    activo: string;
     usuario: string; 
 
     constructor(idEmpresa?: string,
@@ -18,7 +18,9 @@ export class EmpresaModelo {
         digitoVerificacion?: string,
         contacto?: string,
         telefonoContacto?: string,
-        emailContacto?: string) {
+        emailContacto?: string,
+        activo?: string,
+        usuario?: string) {
         this.idEmpresa = idEmpresa;
         this.idCliente = idCliente;
         this.nombre = nombre;
@@ -27,6 +29,8 @@ export class EmpresaModelo {
         this.contacto = contacto;
         this.telefonoContacto = telefonoContacto;
         this.emailContacto = emailContacto;
+        this.activo = activo;
+        this.usuario = usuario;
 
     }
 }

@@ -4,6 +4,8 @@ import { Conexion } from '../util/conexion';
 import { ParametroConsulta } from '../modelos/parametro.consulta.modelo';
 import { ClienteModelo } from '../modelos/cliente.modelo';
 import { ModeloGenerico } from '../modelos/modelo.generico';
+import { EmpresaModelo } from '../modelos/empreesa.modelo';
+
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -11,29 +13,31 @@ const httpOptions = {
 
 @Injectable()
 export class EmpresasServicios {
-
+    
+    
     constructor(private http: HttpClient){
+        
     }
 
     //#region Clientes
     ConsultarEmpresas(empresa: ModeloGenerico){
-        const url = Conexion.UrlApi.concat(Conexion.consultarClientes);
+        const url = Conexion.UrlApi.concat(Conexion.consultarEmpresas);
         return this.http.post(url, empresa, httpOptions);
     }
 
-    /* ModificarCliente(cliente: ClienteModelo){
-        const url = Conexion.UrlApi.concat(Conexion.consultarClientes);
-        return this.http.post(url, cliente, httpOptions);
+    ModificarEmpresa(empresa: EmpresaModelo){
+        const url = Conexion.UrlApi.concat(Conexion.editarEmpresas);
+        return this.http.post(url, empresa, httpOptions);
     }
 
-    CrearCliente(cliente: ClienteModelo){
-        const url = Conexion.UrlApi.concat(Conexion.consultarClientes);
-        return this.http.post(url, cliente, httpOptions);
+    CrearEmpresa(empresa: EmpresaModelo){
+        const url = Conexion.UrlApi.concat(Conexion.crearEmpresas);
+        return this.http.post(url, empresa, httpOptions);
     }
-
-    EliminarCliente(cliente: ClienteModelo){
-        const url = Conexion.UrlApi.concat(Conexion.consultarClientes);
-        return this.http.post(url, cliente, httpOptions);
+ 
+    EliminarEmpresa(empresa: EmpresaModelo){
+        const url = Conexion.UrlApi.concat(Conexion.eliminarEmpresas);
+        return this.http.post(url, empresa, httpOptions);
     }
- */    //#endregion
+    //#endregion
 }
