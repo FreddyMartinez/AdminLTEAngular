@@ -27,6 +27,8 @@
     "ionicons": "^2.0.1",
     "jquery": "3.3.1",
     "ngx-bootstrap": "^3.2.0",
+    "ngx-filter-pipe": "^2.1.2",
+    "ngx-pagination": "^3.2.1",
     "ngx-spinner": "^7.0.0",
     "ngx-toastr": "^9.1.2",
     "rxjs": "^6.4.0",
