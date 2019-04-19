@@ -55,4 +55,8 @@ export class Conexion{
     //#region Clientes
     public static readonly consultarClientes : string = 'Cliente/consultarClientes';
     //#endregion
+
+    //#region Empresas
+    public static readonly consultarEmpresas : string = 'Empresas/consultarEmpresa';
+    //#endregion
 }
