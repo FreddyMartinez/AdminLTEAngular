@@ -10,15 +10,21 @@
                 <th>Contacto</th>
                 <th>Telefono</th>
                 <th>Email</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let empresa of listaEmpresa"  (click)="VerDetalle(empresa)">
+            <tr *ngFor="let empresa of listaEmpresa | paginate: { itemsPerPage: 5, currentPage: p}">
                 <td (change)="ConsultaListaEmpresas()">{{empresa.nombre}}- {{cliente.idCliente}} </td>
                 <td>{{empresa.nit}}-{{empresa.digitoVerificacion}} </td>
                 <td>{{empresa.contacto}}</td>
                 <td>{{empresa.telefonoContacto}}</td>
-                <td>{{empresa.emailContacto}}</td>            
+                <td>{{empresa.emailContacto}}</td>   
+                <td><button class="btn btn-warning" title="Editar empresa"  (click)="CargarItem(empresa)"><i
+                    class="fa fa-pencil"></i></button></td>    
+                <td><button class="btn btn-danger" title="Eiminar empresa"  (click)="AbreModalEliminar(empresa)"><i
+                        class="fa fa-trash"></i></button></td>     
             </tr>
         </tbody>
     </table>
@@ -29,14 +35,6 @@
                 <button class="btn btn-success" title="Añadir empresa" (click)="NuevoItem()">
                         <i class="fa fa-plus-square"></i></button>  
         </div>
-        <div class="col-md-4 text-center">
-                <button class="btn btn-warning" title="Editar empresa"  (click)="CargarItem(empresa)"><i
-                    class="fa fa-pencil"></i></button>
-        </div>
-        <div class="col-md-4 text-center">
-                <button class="btn btn-danger" title="Eiminar empresa"  (click)="AbreModalEliiminar()"><i
-                    class="fa fa-trash"></i></button>
-        </div>
     </div>
 </section>
 
@@ -46,7 +44,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCreaModifica">Eliminar Ítem del Menú</h5>
+                <h5 class="modal-title" id="modalCreaModifica">Editar Empresa</h5>
                 <button type="button" class="close" aria-label="Close" (click)="modalCreaModifica.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -141,7 +139,7 @@
             </div>
             <div class="modal-footer">
                 <div class="col-md-6 text-center">
-                    <button type="button" class="btn btn-danger" (click)="GuardarEmpresa()">Guardar</button>
+                    <button type="button" class="btn btn-success" (click)="GuardarEmpresa()">Guardar</button>
                 </div>
                 <div class="col-md-6 text-center">
                     <button type="button" class="btn btn-secondary" (click)="CancelaItem()">Cancelar</button>

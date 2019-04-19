@@ -21,11 +21,11 @@ export class EmpresaComponent implements OnInit, OnChanges {
   @Input() cliente : ClienteModelo;
   @ViewChild('modalEliminar') modalEliminar: ModalDirective;
   @ViewChild('modalCreaModifica') modalCreaModifica: ModalDirective;
+  public p: number = 1;
   public listaEmpresa : EmpresaModelo[];
   public editarItem : boolean;
   public tipoForm : string;
   public itemEmpresa: EmpresaModelo;
-  public empresaSelect: EmpresaModelo;
   public itemEliminar : EmpresaModelo;
 
   constructor(
@@ -76,26 +76,21 @@ export class EmpresaComponent implements OnInit, OnChanges {
     this.itemEmpresa.idCliente = this.cliente.idCliente;
   }
 
-  CargarItem(){
+  CargarItem(empresa : EmpresaModelo){
     this.editarItem = true;
     this.modalCreaModifica.show();
     this.tipoForm = "modificación de empresa";
-    debugger;
-    this.itemEmpresa = this.empresaSelect;
+    this.itemEmpresa = empresa;
   }
   
-  VerDetalle(empresa : EmpresaModelo){
-    this.empresaSelect = empresa;
-  }
-
   CancelaItem(){
     this.modalCreaModifica.hide();
     this.itemEmpresa = undefined;
   }
 
-  AbreModalEliiminar(){
+  AbreModalEliminar(empresa : EmpresaModelo){
     this.modalEliminar.show();
-    this.itemEliminar = this.empresaSelect;
+    this.itemEliminar = empresa;
   }
 
   EliminarEmpresa(){
