@@ -1,6 +1,6 @@
 export class Conexion{
-    public static readonly UrlApi : string = 'http://servicios.wanfrankj.com/';
-    // public static readonly UrlApi : string = 'http://localhost/SistemaPOS.Servicios/';
+    // public static readonly UrlApi : string = 'http://servicios.wanfrankj.com/';
+    public static readonly UrlApi : string = 'http://localhost/SistemaPOS.Servicios/';
 
     //#region Accesos
     public static readonly versionBack: string = 'Accesos/versionBack';
@@ -54,5 +54,10 @@ export class Conexion{
 
     //#region Clientes
     public static readonly consultarClientes : string = 'Cliente/consultarClientes';
+    public static readonly crearCliente : string = 'Cliente/crearCliente';
+    public static readonly editarCliente : string = 'Cliente/editarCliente';
+    public static readonly eliminarCliente : string = 'Cliente/eliminarCliente';
+    public static readonly consultarClientePrincipal : string = 'Cliente/consultarClientePrincipal';
+    public static readonly consultarClienteReferido : string = 'Cliente/consultarClienteReferido';
     //#endregion
 }

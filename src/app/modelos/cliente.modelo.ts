@@ -11,6 +11,7 @@ export class ClienteModelo{
     public clientePrincipal : string;
     public clienteReferidor : string;
     public activo : string;
+    public usuario : string;
 
     constructor(){}
 }
