@@ -32,6 +32,8 @@ import { debug } from 'util';
 export class ClienteComponent implements OnInit {
   @ViewChild('modalEliminar') modalEliminar: ModalDirective;
   @ViewChild('modalCreaModifica') modalCreaModifica: ModalDirective;
+  public p: number = 1;
+  public filtro: any = { nombre: '', apellido:''};
   public tipoForm : string;
   public listaCliente : ClienteModelo[];
   public itemCliente : ClienteModelo;

@@ -15,12 +15,16 @@
     <fieldset>
         <p class="centered">Lista de clientes.</p>
         
-        <div>
-
-        </div>
-        <div>
-            <button class="btn btn-success" title="Añadir ítem" (click)="NuevoItem()">
-                <i class="fa fa-plus-square"></i></button>
+        <div class="row form-inline">
+            <div class="col-md-5">
+                <label for="filtroCliente" style="padding-right: 15px;">Filtrar Cliente: </label>
+                <input type="text" id="filtroCliente" class="form-control" [(ngModel)]="filtro.nombre" >
+            </div>
+            <div class="col-md-5">
+                <label for="" style="padding-right: 15px;">Crear Cliente </label>
+                <button class="btn btn-success" title="Añadir ítem" (click)="NuevoItem()">
+                    <i class="fa fa-plus-square"></i></button>
+            </div>
         </div>
 
         <div class="table-responsive">
@@ -37,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cliente of listaCliente" (click)="VerDetalle(cliente)">
+                    <tr *ngFor="let cliente of listaCliente | filterBy:filtro | paginate: { itemsPerPage: 5, currentPage: p}" (click)="VerDetalle(cliente)">
                         <td>{{cliente.idCliente}}</td>
                         <td>{{cliente.nombre}}</td>
                         <td>{{cliente.apellido}}</td>

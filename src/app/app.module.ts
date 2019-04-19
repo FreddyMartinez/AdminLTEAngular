@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ToastrModule } from 'ngx-toastr';
 import { ModalModule } from 'ngx-bootstrap';
+import { NgxPaginationModule} from 'ngx-pagination';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 import { AppComponent } from './app.component';
 import { AppRoutesModule } from './app.routes';
@@ -24,6 +26,8 @@ import { EmpresasServicios } from './servicios/empresas.servicio';
     AppRoutesModule,
     HttpModule,
     HttpClientModule,
+    NgxPaginationModule,
+    FilterPipeModule,
     ModalModule.forRoot(),
     ToastrModule.forRoot()
   ],
