@@ -1,11 +1,30 @@
 <section class="content-header">
-  <h1>
-      Empresa
-      <small>Formulario de modificación de empresas</small>
-  </h1>
-  <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i>Cliente</a></li>
-      <li class="active">Prueba</li>
-      <li class="active">Empresas</li>
-  </ol>
+  <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Nit</th>
+                <th>Contacto</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let empresa of listaEmpresa">
+                <td>{{empresa.nombre}} </td>
+                <td>{{empresa.nit}}-{{empresa.digitoVerificacion}} </td>
+                <td>{{empresa.contacto}}</td>
+                <td>{{empresa.telefonoContacto}}</td>
+                <td>{{empresa.emailContacto}}</td>            
+                <td><button class="btn btn-warning" (click)="CargarItem(empresa)"><i
+                            class="fa fa-pencil"></i></button></td>
+                <td><button class="btn btn-danger" (click)="AbreModal(empresa)"><i
+                            class="fa fa-trash"></i></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </section>
