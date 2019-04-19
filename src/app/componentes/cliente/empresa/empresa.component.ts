@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,7 +17,7 @@ import { debug } from 'util';
   templateUrl: './empresa.component.html',
   styleUrls: ['./empresa.component.css']
 })
-export class EmpresaComponent implements OnInit {
+export class EmpresaComponent implements OnInit, OnChanges {
   @Input() cliente : ClienteModelo;
   @ViewChild('modalEliminar') modalEliminar: ModalDirective;
   @ViewChild('modalCreaModifica') modalCreaModifica: ModalDirective;
@@ -32,11 +32,14 @@ export class EmpresaComponent implements OnInit {
     public servicioGlobal: ServicioGlobal,
     public servicio: EmpresasServicios,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService,
-    
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
+    this.ConsultaListaEmpresas();
+  }
+
+  ngOnChanges() {
     this.ConsultaListaEmpresas();
   }
 
@@ -51,7 +54,6 @@ export class EmpresaComponent implements OnInit {
 
   ConsultaListaEmpresas(){
     this.spinner.show();
-    console.log(this.cliente);
     let buscardor: ModeloGenerico = new ModeloGenerico(this.cliente.idCliente, this.servicioGlobal.getUsuario().usuario);
     this.servicio.ConsultarEmpresas(buscardor).subscribe(
       data=>{
