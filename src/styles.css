@@ -13,3 +13,8 @@
 .content-wrapper{
     background-color: #fff;
 }
+
+.table tr.active td {
+    background-color:#666 !important;
+    color: white;
+}
