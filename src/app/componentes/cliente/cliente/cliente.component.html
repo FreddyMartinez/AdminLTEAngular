@@ -41,7 +41,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cliente of listaCliente | filterBy:filtro | paginate: { itemsPerPage: 5, currentPage: p}" (click)="VerDetalle(cliente)">
+                    <tr *ngFor="let cliente of listaCliente | filterBy:filtro | paginate: { itemsPerPage: 5, currentPage: p}" 
+                    (click)="VerDetalle(cliente)"
+                    [class.active]="cliente==clienteDetalle">
                         <td>{{cliente.idCliente}}</td>
                         <td>{{cliente.nombre}}</td>
                         <td>{{cliente.apellido}}</td>
