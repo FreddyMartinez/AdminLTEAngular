@@ -12,10 +12,11 @@
                 <th>Email</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
+                <th>Sucursales</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let empresa of listaEmpresa | paginate: { itemsPerPage: 5, currentPage: p}">
+            <tr *ngFor="let empresa of listaEmpresa | paginate: { itemsPerPage: 5, currentPage: p}" (click)="VerDetalle(cliente)">
                 <td (change)="ConsultaListaEmpresas()">{{empresa.nombre}}- {{cliente.idCliente}} </td>
                 <td>{{empresa.nit}}-{{empresa.digitoVerificacion}} </td>
                 <td>{{empresa.contacto}}</td>
@@ -24,7 +25,9 @@
                 <td><button class="btn btn-warning" title="Editar empresa"  (click)="CargarItem(empresa)"><i
                     class="fa fa-pencil"></i></button></td>    
                 <td><button class="btn btn-danger" title="Eiminar empresa"  (click)="AbreModalEliminar(empresa)"><i
-                        class="fa fa-trash"></i></button></td>     
+                        class="fa fa-trash"></i></button></td>
+                <td><button class="btn btn-info" title="Sucursales"  (click)="ConsultaListaSucursales(empresa)"><i
+                    class="fa fa-building-o"></i></button></td>       
             </tr>
         </tbody>
     </table>
@@ -38,7 +41,7 @@
     </div>
 </section>
 
-<!-- modal crear o modificar -->
+<!-- modal crear o modificar empresa -->
 <div class="modal fade" bsModal #modalCreaModifica="bs-modal" id="modalCreaModifica" tabindex="-1" role="dialog"
     aria-labelledby="modalCreaModifica" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -149,7 +152,7 @@
     </div>
 </div>
 
-<!-- modal eliminar -->
+<!-- modal eliminar empresa -->
 <div class="modal fade" bsModal #modalEliminar="bs-modal" id="modalEliminar" tabindex="-1" role="dialog"
     aria-labelledby="modalEliminar" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -176,3 +179,229 @@
         </div>
     </div>
 </div>
+
+
+<!-- modal sucursal -->
+<div class="modal fade" bsModal #modalSucursal="bs-modal" id="modalSucursal" tabindex="-1" role="dialog"
+    aria-labelledby="modalSucursal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCreaModifica">Sucursales - {{nombreEmpresa}}</h5>
+                    <button type="button" class="close" aria-label="Close" (click)="modalSucursal.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>      
+        <section class="modal-body">
+            <fieldset>
+                <div class="table-responsive">
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Tipo sucursal</th>
+                                <th>Direcion</th>
+                                <th>Telefono</th>
+                                <th>Email</th>
+                                <th>Contacto</th>
+                                <th>Email Contac.</th>
+                                <th>Telefono Contac.</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let sucursal of listaSucursal | paginate: { itemsPerPage: 5, currentPage: q}">
+                                <td>{{sucursal.nombre}}- {{sucursal.idSucursal}} </td>
+                                <td>{{sucursal.idTipoSucursal}}-{{sucursal.idEmpresa}} </td>
+                                <td>{{sucursal.direccion}} - {{sucursal.barrio}}</td>
+                                <td>{{sucursal.telefono}}</td>
+                                <td>{{sucursal.email}}</td>   
+                                <td>{{sucursal.contacto}}</td>      
+                                <td>{{sucursal.emailContacto}}</td>   
+                                <td>{{sucursal.telefonoContacto}}</td> 
+                                <td><button class="btn btn-warning" title="Editar sucursal"  (click)="CargarItemSucursal(sucursal)"><i
+                                    class="fa fa-pencil"></i></button></td>    
+                                <td><button class="btn btn-danger" title="Eiminar sucursal"  (click)="AbreModalEliminarSucursal(sucursal)"><i
+                                        class="fa fa-trash"></i></button></td>     
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+                <div class="modal-footer">
+                    <div class="col-md-4 text-center">
+                            <button class="btn btn-success" title="Añadir Sucursal" (click)="NuevoItemSucursal()">Añadir Sucursal  
+                            <i class="fa fa-plus-square"></i></button>  
+                    </div>
+                </div>
+        </section>
+    </div>
+</div>
+<!-- modal eliminar SUCURSAL -->
+<div class="modal fade" bsModal #modalEliminarSucursal="bs-modal" id="modalEliminarSucursal" tabindex="-1" role="dialog"
+    aria-labelledby="modalEliminarSucursal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEliminarSucursal">Eliminar Ítem del Menú</h5>
+                <button type="button" class="close" aria-label="Close" (click)="modalEliminarSucursal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" *ngIf="itemEliminarSucursal">
+                    <p>Está seguro que desea eliminar la sucursal {{itemEliminarSucursal.nombre}}?</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-6 text-center">
+                    <button type="button" class="btn btn-danger" (click)="EliminarSucursal()">Eliminar</button>
+                </div>
+                <div class="col-md-6 text-center">
+                    <button type="button" class="btn btn-secondary" (click)="modalEliminarSucursal.hide()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal crear o modificar SUCURSAL -->
+<div class="modal fade" bsModal #modalCreaModificaSucursal="bs-modal" id="modalCreaModificaSucursal" tabindex="-1" role="dialog"
+    aria-labelledby="modalCreaModificaSucursal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCreaModificaSucursal">Editar Sucursal</h5>
+                <button type="button" class="close" aria-label="Close" (click)="modalCreaModificaSucursal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-horizontal" *ngIf="itemSucursal">
+
+                    <p class="centered">Bienvenido al formulario de {{tipoForm}}.</p>
+                    <br />
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="id_Sucursal">Sucursal</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="id_Sucursal" [(ngModel)]="itemSucursal.idSucursal"
+                                name="id_Sucursal" [disabled]="editarItem" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-md-4 control-label" for="id_TipoSucursal">Tipo Sucursal</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="id_TipoSucursal" [(ngModel)]="itemSucursal.idTipoSucursal"
+                                    name="id_TipoSucursal" required>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                            <label class="col-md-4 control-label" for="id_Empresa">Empresa</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="id_Empresa" [(ngModel)]="itemSucursal.idEmpresa"
+                                    name="id_Empresa" [disabled]="editarItem||!editarItem" required>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="nombre">Nombres</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="nombre" [(ngModel)]="itemSucursal.nombre"
+                                #nombre="ngModel" autofocus required>
+                            <span *ngIf="!nombre.valid && nombre.touched" class="warning-message">El nombre es
+                                requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="direccionInput">Direccion</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="direccionInput" [(ngModel)]="itemSucursal.direccion" 
+                                #direccionInput="ngModel" required>
+                            <span *ngIf="!direccionInput.valid && direccionInput.touched" class="warning-message">La
+                                direccion es requerida</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="barrio">Barrio</label>
+                        <div class="col-md-4">
+                                <input type="text" class="form-control" id="barrio" [(ngModel)]="itemSucursal.barrio" 
+                                #barrio="ngModel" required>
+                            <span *ngIf="!barrio.valid && barrio.touched" class="warning-message">El barrio
+                                es requerido</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-md-4 control-label" for="telefono">Telefono </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="telefono" [(ngModel)]="itemSucursal.telefono"
+                                    #telefono="ngModel" required>
+                                <span *ngIf="!telefono.valid && telefono.touched" class="warning-message">El
+                                        Telefono es requerido</span>
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                            <label class="col-md-4 control-label" for="email">Email</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="email" [(ngModel)]="itemSucursal.email"
+                                    name="email" #email="ngModel" required>
+                                <span *ngIf="!email.valid && email.touched" class="warning-message">El email
+                                    es requerido</span>
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="contacto">Contacto</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="contacto" [(ngModel)]="itemSucursal.contacto"
+                                #contacto="ngModel" required>
+                            <span *ngIf="!contacto.valid && contacto.touched" class="warning-message">El contacto de
+                                la susucrsal es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="telefonoContacto">Telefono contacto</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="telefonoContacto" [(ngModel)]="itemSucursal.telefonoContacto"
+                                #telefonoContacto="ngModel" required>
+                            <span *ngIf="!telefonoContacto.valid && telefonoContacto.touched" class="warning-message">El
+                                    Telefono es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="emailContacto">Email contacto</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="emailContacto" [(ngModel)]="itemSucursal.emailContacto"
+                                name="emailContacto" #emailContacto="ngModel" required>
+                            <span *ngIf="!emailContacto.valid && emailContacto.touched" class="warning-message">El email
+                                es requerido</span>
+                        </div>
+                    </div>
+                       
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="sucursal_activo">Activo</label>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="sucursal_activo" [(ngModel)]="itemSucursal.activo" name="sucursal_activo">                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-6 text-center">
+                    <button type="button" class="btn btn-success" (click)="GuardarSucursal()">Guardar</button>
+                </div>
+                <div class="col-md-6 text-center">
+                    <button type="button" class="btn btn-secondary" (click)="CancelaItemSucursal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

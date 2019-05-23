@@ -4,7 +4,8 @@ import { Conexion } from '../util/conexion';
 import { ParametroConsulta } from '../modelos/parametro.consulta.modelo';
 import { ClienteModelo } from '../modelos/cliente.modelo';
 import { ModeloGenerico } from '../modelos/modelo.generico';
-import { EmpresaModelo } from '../modelos/empreesa.modelo';
+import { EmpresaModelo } from '../modelos/empresa.modelo';
+import { SucursalEmpresaModelo } from '../modelos/sucursal.empresa.modelo';
 
 
 const httpOptions = {
@@ -38,6 +39,29 @@ export class EmpresasServicios {
     EliminarEmpresa(empresa: EmpresaModelo){
         const url = Conexion.UrlApi.concat(Conexion.eliminarEmpresas);
         return this.http.post(url, empresa, httpOptions);
+    }
+    //#endregion
+
+    //#region Sucursal
+
+    ConsultarSucursales(empresa: ModeloGenerico){
+        const url = Conexion.UrlApi.concat(Conexion.consultarSucursalEmpresas);
+        return this.http.post(url, empresa, httpOptions);
+    }
+
+    ModificarSucursal(sucursal: SucursalEmpresaModelo){
+        const url = Conexion.UrlApi.concat(Conexion.editarSucursalEmpresa);
+        return this.http.post(url, sucursal, httpOptions);
+    }
+
+    CrearSucursal(sucursal: SucursalEmpresaModelo){
+        const url = Conexion.UrlApi.concat(Conexion.crearSucursalEmpresa);
+        return this.http.post(url, sucursal, httpOptions);
+    }
+ 
+    EliminarSucursal(sucursal: SucursalEmpresaModelo){
+        const url = Conexion.UrlApi.concat(Conexion.eliminarSucursalEmpresa);
+        return this.http.post(url, sucursal, httpOptions);
     }
     //#endregion
 }

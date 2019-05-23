@@ -67,4 +67,11 @@ export class Conexion{
     public static readonly editarEmpresas : string = 'Empresas/editarEmpresa';
     public static readonly eliminarEmpresas : string = 'Empresas/eliminarEmpresa';
     //#endregion
+
+    //#region SucursalEmpresas 
+    public static readonly consultarSucursalEmpresas : string = 'Empresas/consultarSucursalEmpresas';
+    public static readonly crearSucursalEmpresa : string = 'Empresas/crearSucursalEmpresa';
+    public static readonly editarSucursalEmpresa : string = 'Empresas/editarSucursalEmpresa';
+    public static readonly eliminarSucursalEmpresa : string = 'Empresas/eliminarSucursalEmpresa';
+    //#endregion
 }
