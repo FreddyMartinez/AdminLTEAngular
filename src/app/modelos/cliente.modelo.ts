@@ -12,6 +12,11 @@ export class ClienteModelo{
     public clienteReferidor : string;
     public activo : string;
     public usuario : string;
-
+    public fechaCreacion: string;
+    public usrModificacion : string;
+    public fechaModificacion : string;
+    public tipoDocumentoDes : string;
+    public nombreClientePrincipal :string;
+    public nombreClientereferido :string;
     constructor(){}
 }

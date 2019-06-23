@@ -17,7 +17,7 @@
         
         <div class="row form-inline">
             <div class="col-md-5">
-                <label for="filtroCliente" style="padding-right: 15px;">Filtrar Cliente: </label>
+                <label for="filtroCliente" style="padding-right: 15px;">Filtrar Nombre: </label>
                 <input type="text" id="filtroCliente" class="form-control" [(ngModel)]="filtro.nombre" >
             </div>
             <div class="col-md-5">
@@ -32,8 +32,8 @@
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
                         <th>Tipo de documento</th>
                         <th>Documento</th>
                         <th>Telefono</th>
@@ -47,10 +47,10 @@
                         <td>{{cliente.idCliente}}</td>
                         <td>{{cliente.nombre}}</td>
                         <td>{{cliente.apellido}}</td>
-                        <td>{{cliente.tipoDocumento}}</td>
+                        <td>{{cliente.tipoDocumentoDes}}</td>
                         <td>{{cliente.documento}}</td>
                         <td>{{cliente.telefono}}</td>
-                        <td>{{cliente.activo}}</td>
+                        <td><input type="checkbox" [(ngModel)]="cliente.activo" [disabled]="cliente" name="list_name" value="{{cliente.activo}}" ></td>
                     </tr>
                 </tbody>
             </table>
@@ -61,13 +61,13 @@
 <!-- Main content -->
 <section class="content container-fluid" @myInsertRemoveTrigger *ngIf="clienteDetalle">
     <fieldset>
-        <div class="col-md-4">
-            <p>Información del cliente</p>
+        <div class="col-md-4 ">
+            <p><strong>Información del cliente</strong></p>
 
-            <table class="table">
+            <table class="table ">
                 <tr>
                     <td>
-                        Código
+                        <strong> Código</strong>
                     </td>
                     <td>
                         {{clienteDetalle.idCliente}}
@@ -75,7 +75,7 @@
                 </tr>
                 <tr>        
                     <td>
-                        Email
+                        <strong>Email</strong>
                     </td>
                     <td>
                         {{clienteDetalle.email}}
@@ -83,26 +83,50 @@
                 </tr>
                 <tr>        
                     <td>
-                        Cliente Principal
+                        <strong>Cliente Principal</strong>
                     </td>
                     <td>
-                        {{clienteDetalle.clientePrincipal}}
-                    </td>
-                </tr>
-                <tr>        
-                    <td>
-                        Cliente Referidor
-                    </td>
-                    <td>
-                        {{clienteDetalle.clienteReferidor}}
+                        {{clienteDetalle.nombreClientePrincipal}}
                     </td>
                 </tr>
                 <tr>        
                     <td>
-                        Usuario de Creación
+                        <strong>Cliente Referidor</strong>
+                    </td>
+                    <td>
+                        {{clienteDetalle.nombreClientereferido}}
+                    </td>
+                </tr>
+                <tr>        
+                    <td>
+                        <strong>Usuario de Creación</strong>
                     </td>
                     <td>
                         {{clienteDetalle.usuario}}
+                    </td>
+                </tr>
+                <tr>        
+                    <td>
+                        <strong>Fecha de creación</strong>
+                    </td>
+                    <td>
+                        {{clienteDetalle.fechaCreacion}}
+                    </td>
+                </tr>
+                <tr>        
+                    <td>
+                        <strong>Usuario de modificación</strong>
+                    </td>
+                    <td>
+                        {{clienteDetalle.usrModificacion}}
+                    </td>
+                </tr>
+                <tr>        
+                    <td>
+                        <strong>Fecha de modificación</strong>
+                    </td>
+                    <td>
+                        {{clienteDetalle.fechaModificacion}}
                     </td>
                 </tr>
             </table>
@@ -153,7 +177,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCreaModifica">Editar cliente</h5>
+                <h5 class="modal-title" id="modalCreaModifica">Editar/Agregar cliente</h5>
                 <button type="button" class="close" aria-label="Close" (click)="modalCreaModifica.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -165,18 +189,18 @@
                     <p class="centered">Bienvenido al formulario de {{tipoForm}}.</p>
                     <br />
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="id_cliente">Cliente</label>
+                        <label class="col-md-4 control-label" for="id_cliente">Codigo</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="id_cliente" [(ngModel)]="itemCliente.idCliente"
-                                name="id_cliente" [disabled]="editarItem" required>
+                            <input type="text" class="form-control" value="-1" id="id_cliente" [(ngModel)]="itemCliente.idCliente"
+                                name="id_cliente" [disabled]="editarItem||!editarItem" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="nombre">Nombres</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input type="text" class="form-control" id="nombre" [(ngModel)]="itemCliente.nombre"
-                                #nombre="ngModel" autofocus required>
+                                #nombre="ngModel" oninput="this.value = this.value.toUpperCase()" autofocus required>
                             <span *ngIf="!nombre.valid && nombre.touched" class="warning-message">El nombre es
                                 requerido</span>
                         </div>
@@ -184,9 +208,10 @@
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="apellidosInput">Apellidos</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input type="text" class="form-control" id="apellidosInput"
-                                [(ngModel)]="itemCliente.apellido" #apellidosInput="ngModel" required>
+                                [(ngModel)]="itemCliente.apellido" #apellidosInput="ngModel"
+                                oninput="this.value = this.value.toUpperCase()" required>
                             <span *ngIf="!apellidosInput.valid && apellidosInput.touched" class="warning-message">Los
                                 apellidos son requeridos</span>
                         </div>
@@ -219,14 +244,14 @@
                         <label class="col-md-4 control-label" for="email_cliente">Correo</label>
                         <div class="col-md-4">
                             <input type="text" class="form-control" id="email_cliente" [(ngModel)]="itemCliente.email"
-                                #email_cliente="ngModel" [disabled]="editarItem" required>
+                                #email_cliente="ngModel"  required>
                             <span *ngIf="!email_cliente.valid && email_cliente.touched" class="warning-message">El
                                 correo es requerido</span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="tel_cliente">Teléfono</label>
+                        <label class="col-md-4 control-label" for="tel_cliente">Teléfonos</label>
                         <div class="col-md-4">
                             <input type="text" class="form-control" id="tel_cliente" [(ngModel)]="itemCliente.telefono"
                                 name="tel_cliente" #tel_cliente="ngModel" required>
@@ -245,7 +270,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div *ngIf="mostrar" class="form-group">
                         <label class="col-md-4 control-label" for="dir_cliente">Barrio</label>
                         <div class="col-md-4">
                             <input type="text" class="form-control" id="dir_cliente" [(ngModel)]="itemCliente.barrio"
@@ -258,8 +283,11 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="cliente_principal">Cliente Principal</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="cliente_principal" [(ngModel)]="itemCliente.clientePrincipal"
-                                name="cliente_principal" #cliente_principal="ngModel" required>
+                                <select class="form-control" id="cliente_principal" [(ngModel)]="itemCliente.clientePrincipal"
+                                #cliente_principal="ngModel" [disabled]="editarItem"  required >
+                                <option *ngFor="let listaCli of listaCliente" [value]="listaCli.idCliente">{{listaCli.nombre}} {{listaCli.apellido}}
+                                </option>
+                            </select>
                             <span *ngIf="!cliente_principal.valid && cliente_principal.touched" class="warning-message">El cliente principal es requerido</span>
                         </div>
                     </div>

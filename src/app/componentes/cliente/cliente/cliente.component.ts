@@ -17,6 +17,7 @@ import { debug } from 'util';
 @Component({
   selector: 'cliente-form',
   templateUrl: './cliente.component.html',
+  styleUrls: ['./cliente.component.css'],
   animations: [
     trigger('myInsertRemoveTrigger', [
       transition(':enter', [
@@ -166,11 +167,13 @@ export class ClienteComponent implements OnInit {
           this.spinner.hide();
           if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
             this.itemCliente = undefined;
-            this.toastr.success(data[Constantes.objetoRespuesta] as string);
+            this.toastr.success(data[Constantes.objetoRespuesta] as string);         
             this.ConsultaListaItems();
+            this.CancelaItem();
           }
         },
         error=>{
+          this.CancelaItem();
           this.MuestraError(error);
         }
       );
@@ -183,10 +186,13 @@ export class ClienteComponent implements OnInit {
             this.itemCliente = undefined;
             this.toastr.success(data[Constantes.objetoRespuesta] as string);
             this.ConsultaListaItems();
+            this.CancelaItem();
+            
           }
         },
         error=>{
           this.MuestraError(error);
+          this.CancelaItem();
         }
       );
     }
