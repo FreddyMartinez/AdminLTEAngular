@@ -1,42 +1,44 @@
 <section class="content-header">
-        <fieldset>
-  <div class="table-responsive">
-      
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Nit</th>
-                <th>Contacto</th>
-                <th>Telefono</th>
-                <th>Email</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
-                <th>Sucursales</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let empresa of listaEmpresa | paginate: { itemsPerPage: 5, currentPage: p}" (click)="VerDetalle(cliente)">
-                <td (change)="ConsultaListaEmpresas()">{{empresa.nombre}}- {{cliente.idCliente}} </td>
-                <td>{{empresa.nit}}-{{empresa.digitoVerificacion}} </td>
-                <td>{{empresa.contacto}}</td>
-                <td>{{empresa.telefonoContacto}}</td>
-                <td>{{empresa.emailContacto}}</td>   
-                <td><button class="btn btn-warning" title="Editar empresa"  (click)="CargarItem(empresa)"><i
-                    class="fa fa-pencil"></i></button></td>    
-                <td><button class="btn btn-danger" title="Eiminar empresa"  (click)="AbreModalEliminar(empresa)"><i
-                        class="fa fa-trash"></i></button></td>
-                <td><button class="btn btn-info" title="Sucursales"  (click)="ConsultaListaSucursales(empresa)"><i
-                    class="fa fa-building-o"></i></button></td>       
-            </tr>
-        </tbody>
-    </table>
-</div>
-</fieldset>
-<div class="modal-footer">
+    <fieldset>
+        <div class="table-responsive">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Nit</th>
+                        <th>Contacto</th>
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                        <th>Sucursales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let empresa of listaEmpresa | paginate: { itemsPerPage: 5, currentPage: p}"
+                        (click)="VerDetalle(cliente)">
+                        <td (change)="ConsultaListaEmpresas()">{{empresa.nombre}}- {{cliente.idCliente}} </td>
+                        <td>{{empresa.nit}}-{{empresa.digitoVerificacion}} </td>
+                        <td>{{empresa.contacto}}</td>
+                        <td>{{empresa.telefonoContacto}}</td>
+                        <td>{{empresa.emailContacto}}</td>
+                        <td><button class="btn btn-warning" title="Editar empresa" (click)="CargarItem(empresa)"><i
+                                    class="fa fa-pencil"></i></button></td>
+                        <td><button class="btn btn-danger" title="Eiminar empresa"
+                                (click)="AbreModalEliminar(empresa)"><i class="fa fa-trash"></i></button></td>
+                        <td><button class="btn btn-info" title="Sucursales"
+                                (click)="ConsultaListaSucursales(empresa)"><i class="fa fa-building-o"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    <div class="modal-footer">
         <div class="col-md-4 text-center">
-                <button class="btn btn-success" title="Añadir empresa" (click)="NuevoItem()">
-                        <i class="fa fa-plus-square"></i> Crear empresa</button>  
+            <button class="btn btn-success" title="Añadir empresa" (click)="NuevoItem()">
+                <i class="fa fa-plus-square"></i> Crear empresa</button>
         </div>
     </div>
 </section>
@@ -66,12 +68,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                            <label class="col-md-4 control-label" for="id_cliente">Cliente</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" id="id_cliente" [(ngModel)]="itemEmpresa.idCliente"
-                                    name="id_cliente" [disabled]="editarItem||!editarItem" required>
-                            </div>
+                        <label class="col-md-4 control-label" for="id_cliente">Cliente</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="id_cliente" [(ngModel)]="itemEmpresa.idCliente"
+                                name="id_cliente" [disabled]="editarItem||!editarItem" required>
                         </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="nombre">Nombres</label>
                         <div class="col-md-4">
@@ -85,7 +87,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="nitInput">NIT</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="nitInput" [(ngModel)]="itemEmpresa.nit" 
+                            <input type="text" class="form-control" id="nitInput" [(ngModel)]="itemEmpresa.nit"
                                 #nitInput="ngModel" required>
                             <span *ngIf="!nitInput.valid && nitInput.touched" class="warning-message">El
                                 NIT es requerido</span>
@@ -95,9 +97,10 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="digitoVerificacion">Digito verificación</label>
                         <div class="col-md-4">
-                                <input type="number" class="form-control" id="digitoVerificacion" [(ngModel)]="itemEmpresa.digitoVerificacion" 
-                                #digitoVerificacion="ngModel" required>
-                            <span *ngIf="!digitoVerificacion.valid && digitoVerificacion.touched" class="warning-message">El 
+                            <input type="number" class="form-control" id="digitoVerificacion"
+                                [(ngModel)]="itemEmpresa.digitoVerificacion" #digitoVerificacion="ngModel" required>
+                            <span *ngIf="!digitoVerificacion.valid && digitoVerificacion.touched"
+                                class="warning-message">El
                                 Digito verificación es requerido</span>
                         </div>
                     </div>
@@ -115,27 +118,29 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="telefonoContacto">Telefono contacto</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="telefonoContacto" [(ngModel)]="itemEmpresa.telefonoContacto"
-                                #telefonoContacto="ngModel" required>
+                            <input type="text" class="form-control" id="telefonoContacto"
+                                [(ngModel)]="itemEmpresa.telefonoContacto" #telefonoContacto="ngModel" required>
                             <span *ngIf="!telefonoContacto.valid && telefonoContacto.touched" class="warning-message">El
-                                    Telefono es requerido</span>
+                                Telefono es requerido</span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="emailContacto">Email contacto</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="emailContacto" [(ngModel)]="itemEmpresa.emailContacto"
-                                name="emailContacto" #emailContacto="ngModel" required>
+                            <input type="text" class="form-control" id="emailContacto"
+                                [(ngModel)]="itemEmpresa.emailContacto" name="emailContacto" #emailContacto="ngModel"
+                                required>
                             <span *ngIf="!emailContacto.valid && emailContacto.touched" class="warning-message">El email
                                 es requerido</span>
                         </div>
                     </div>
-                       
+
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="empresa_activo">Activo</label>
                         <div class="col-md-4">
-                            <input type="checkbox" id="empresa_activo" [(ngModel)]="itemEmpresa.activo" name="empresa_activo">                    
+                            <input type="checkbox" id="empresa_activo" [(ngModel)]="itemEmpresa.activo"
+                                name="empresa_activo">
                         </div>
                     </div>
                 </div>
@@ -185,63 +190,69 @@
 <div class="modal fade" bsModal #modalSucursal="bs-modal" id="modalSucursal" tabindex="-1" role="dialog"
     aria-labelledby="modalSucursal" aria-hidden="true">
     <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCreaModifica">Sucursales - {{nombreEmpresa}}</h5>
-                    <button type="button" class="close" aria-label="Close" (click)="modalSucursal.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>      
-        <section class="modal-body">
-            <fieldset>
-                <div class="table-responsive">
-                    
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Tipo sucursal</th>
-                                <th>Direcion</th>
-                                <th>Telefono</th>
-                                <th>Email</th>
-                                <th>Contacto</th>
-                                <th>Email Contac.</th>
-                                <th>Telefono Contac.</th>
-                                <th>Editar</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let sucursal of listaSucursal | paginate: { itemsPerPage: 5, currentPage: q}">
-                                <td>{{sucursal.nombre}}- {{sucursal.idSucursal}} </td>
-                                <td>{{sucursal.idTipoSucursal}}-{{sucursal.idEmpresa}} </td>
-                                <td>{{sucursal.direccion}} - {{sucursal.barrio}}</td>
-                                <td>{{sucursal.telefono}}</td>
-                                <td>{{sucursal.email}}</td>   
-                                <td>{{sucursal.contacto}}</td>      
-                                <td>{{sucursal.emailContacto}}</td>   
-                                <td>{{sucursal.telefonoContacto}}</td> 
-                                <td><button class="btn btn-warning" title="Editar sucursal"  (click)="CargarItemSucursal(sucursal)"><i
-                                    class="fa fa-pencil"></i></button></td>    
-                                <td><button class="btn btn-danger" title="Eiminar sucursal"  (click)="AbreModalEliminarSucursal(sucursal)"><i
-                                        class="fa fa-trash"></i></button></td>     
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </fieldset>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCreaModifica">Sucursales - {{nombreEmpresa}}</h5>
+                <button type="button" class="close" aria-label="Close" (click)="modalSucursal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <section class="modal-body">
+                <fieldset>
+                    <div class="table-responsive">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Tipo sucursal</th>
+                                    <th>Direcion</th>
+                                    <th>Telefono</th>
+                                    <th>Email</th>
+                                    <th>Contacto</th>
+                                    <th>Email Contac.</th>
+                                    <th>Telefono Contac.</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let sucursal of listaSucursal | paginate: { itemsPerPage: 5, currentPage: q}">
+                                    <td>{{sucursal.nombre}}- {{sucursal.idSucursal}} </td>
+                                    <td>{{sucursal.idTipoSucursal}}-{{sucursal.idEmpresa}} </td>
+                                    <td>{{sucursal.direccion}} - {{sucursal.barrio}}</td>
+                                    <td>{{sucursal.telefono}}</td>
+                                    <td>{{sucursal.email}}</td>
+                                    <td>{{sucursal.contacto}}</td>
+                                    <td>{{sucursal.emailContacto}}</td>
+                                    <td>{{sucursal.telefonoContacto}}</td>
+                                    <td><button class="btn btn-warning" title="Editar sucursal"
+                                            (click)="CargarItemSucursal(sucursal)"><i class="fa fa-pencil"></i></button>
+                                    </td>
+                                    <td><button class="btn btn-danger" title="Eiminar sucursal"
+                                            (click)="AbreModalEliminarSucursal(sucursal)"><i
+                                                class="fa fa-trash"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
                 <div class="modal-footer">
                     <div class="col-md-4 text-center">
-                            <button class="btn btn-success" title="Añadir Sucursal" (click)="NuevoItemSucursal()">Añadir Sucursal  
-                            <i class="fa fa-plus-square"></i></button>  
+                        <button class="btn btn-success" title="Añadir Sucursal" (click)="NuevoItemSucursal()">Añadir
+                            Sucursal
+                            <i class="fa fa-plus-square"></i></button>
                     </div>
                 </div>
-        </section>
+            </section>
+        </div>
     </div>
 </div>
+
 <!-- modal eliminar SUCURSAL -->
-<div class="modal fade" bsModal #modalEliminarSucursal="bs-modal" id="modalEliminarSucursal" tabindex="-1" role="dialog"
-    aria-labelledby="modalEliminarSucursal" aria-hidden="true">
+<div class="modal fade" bsModal #modalEliminarSucursal="bs-modal" id="modalEliminarSucursal" tabindex="-1"
+    role="dialog" aria-labelledby="modalEliminarSucursal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -260,17 +271,17 @@
                     <button type="button" class="btn btn-danger" (click)="EliminarSucursal()">Eliminar</button>
                 </div>
                 <div class="col-md-6 text-center">
-                    <button type="button" class="btn btn-secondary" (click)="modalEliminarSucursal.hide()">Cancelar</button>
+                    <button type="button" class="btn btn-secondary"
+                        (click)="modalEliminarSucursal.hide()">Cancelar</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <!-- modal crear o modificar SUCURSAL -->
-<div class="modal fade" bsModal #modalCreaModificaSucursal="bs-modal" id="modalCreaModificaSucursal" tabindex="-1" role="dialog"
-    aria-labelledby="modalCreaModificaSucursal" aria-hidden="true">
+<div class="modal fade" bsModal #modalCreaModificaSucursal="bs-modal" id="modalCreaModificaSucursal" tabindex="-1"
+    role="dialog" aria-labelledby="modalCreaModificaSucursal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -288,24 +299,25 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="id_Sucursal">Sucursal</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="id_Sucursal" [(ngModel)]="itemSucursal.idSucursal"
-                                name="id_Sucursal" [disabled]="editarItem" required>
+                            <input type="text" class="form-control" id="id_Sucursal"
+                                [(ngModel)]="itemSucursal.idSucursal" name="id_Sucursal" [disabled]="editarItem"
+                                required>
                         </div>
                     </div>
                     <div class="form-group">
-                            <label class="col-md-4 control-label" for="id_TipoSucursal">Tipo Sucursal</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" id="id_TipoSucursal" [(ngModel)]="itemSucursal.idTipoSucursal"
-                                    name="id_TipoSucursal" required>
-                            </div>
+                        <label class="col-md-4 control-label" for="id_TipoSucursal">Tipo Sucursal</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="id_TipoSucursal"
+                                [(ngModel)]="itemSucursal.idTipoSucursal" name="id_TipoSucursal" required>
                         </div>
+                    </div>
                     <div class="form-group">
-                            <label class="col-md-4 control-label" for="id_Empresa">Empresa</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" id="id_Empresa" [(ngModel)]="itemSucursal.idEmpresa"
-                                    name="id_Empresa" [disabled]="editarItem||!editarItem" required>
-                            </div>
+                        <label class="col-md-4 control-label" for="id_Empresa">Empresa</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="id_Empresa" [(ngModel)]="itemSucursal.idEmpresa"
+                                name="id_Empresa" [disabled]="editarItem||!editarItem" required>
                         </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="nombre">Nombres</label>
                         <div class="col-md-4">
@@ -319,8 +331,8 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="direccionInput">Direccion</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="direccionInput" [(ngModel)]="itemSucursal.direccion" 
-                                #direccionInput="ngModel" required>
+                            <input type="text" class="form-control" id="direccionInput"
+                                [(ngModel)]="itemSucursal.direccion" #direccionInput="ngModel" required>
                             <span *ngIf="!direccionInput.valid && direccionInput.touched" class="warning-message">La
                                 direccion es requerida</span>
                         </div>
@@ -329,31 +341,31 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="barrio">Barrio</label>
                         <div class="col-md-4">
-                                <input type="text" class="form-control" id="barrio" [(ngModel)]="itemSucursal.barrio" 
+                            <input type="text" class="form-control" id="barrio" [(ngModel)]="itemSucursal.barrio"
                                 #barrio="ngModel" required>
                             <span *ngIf="!barrio.valid && barrio.touched" class="warning-message">El barrio
                                 es requerido</span>
                         </div>
                     </div>
                     <div class="form-group">
-                            <label class="col-md-4 control-label" for="telefono">Telefono </label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" id="telefono" [(ngModel)]="itemSucursal.telefono"
-                                    #telefono="ngModel" required>
-                                <span *ngIf="!telefono.valid && telefono.touched" class="warning-message">El
-                                        Telefono es requerido</span>
-                            </div>
+                        <label class="col-md-4 control-label" for="telefono">Telefono </label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="telefono" [(ngModel)]="itemSucursal.telefono"
+                                #telefono="ngModel" required>
+                            <span *ngIf="!telefono.valid && telefono.touched" class="warning-message">El
+                                Telefono es requerido</span>
                         </div>
+                    </div>
 
                     <div class="form-group">
-                            <label class="col-md-4 control-label" for="email">Email</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" id="email" [(ngModel)]="itemSucursal.email"
-                                    name="email" #email="ngModel" required>
-                                <span *ngIf="!email.valid && email.touched" class="warning-message">El email
-                                    es requerido</span>
-                            </div>
+                        <label class="col-md-4 control-label" for="email">Email</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="email" [(ngModel)]="itemSucursal.email"
+                                name="email" #email="ngModel" required>
+                            <span *ngIf="!email.valid && email.touched" class="warning-message">El email
+                                es requerido</span>
                         </div>
+                    </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="contacto">Contacto</label>
@@ -368,27 +380,30 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="telefonoContacto">Telefono contacto</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="telefonoContacto" [(ngModel)]="itemSucursal.telefonoContacto"
-                                #telefonoContacto="ngModel" required>
+                            <input type="text" class="form-control" id="telefonoContacto"
+                                [(ngModel)]="itemSucursal.telefonoContacto" #telefonoContacto="ngModel" required>
                             <span *ngIf="!telefonoContacto.valid && telefonoContacto.touched" class="warning-message">El
-                                    Telefono es requerido</span>
+                                Telefono es requerido</span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="emailContacto">Email contacto</label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="emailContacto" [(ngModel)]="itemSucursal.emailContacto"
-                                name="emailContacto" #emailContacto="ngModel" required>
-                            <span *ngIf="!emailContacto.valid && emailContacto.touched" class="warning-message">El email
+                            <input type="text" class="form-control" id="emailContacto"
+                                [(ngModel)]="itemSucursal.emailContacto" name="emailContacto" #emailContacto="ngModel"
+                                required>
+                            <span *ngIf="!emailContacto.valid && emailContacto.touched" class="warning-message">El
+                                email
                                 es requerido</span>
                         </div>
                     </div>
-                       
+
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="sucursal_activo">Activo</label>
                         <div class="col-md-4">
-                            <input type="checkbox" id="sucursal_activo" [(ngModel)]="itemSucursal.activo" name="sucursal_activo">                    
+                            <input type="checkbox" id="sucursal_activo" [(ngModel)]="itemSucursal.activo"
+                                name="sucursal_activo">
                         </div>
                     </div>
                 </div>
@@ -404,4 +419,3 @@
         </div>
     </div>
 </div>
-

@@ -20,7 +20,7 @@
                 <label for="filtroCliente" style="padding-right: 15px;">Filtrar Nombre: </label>
                 <input type="text" id="filtroCliente" class="form-control" [(ngModel)]="filtro.nombre" >
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6 text-right">
                 <label for="" style="padding-right: 15px;">Crear Cliente </label>
                 <button class="btn btn-success" title="Añadir ítem" (click)="NuevoItem()">
                     <i class="fa fa-plus-square"></i></button>
@@ -54,6 +54,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="text-center">
+                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" class="my-pagination"></pagination-controls>
+            </div>
         </div>
     </fieldset>
 </section>
@@ -147,19 +150,25 @@
                   <a class="nav-link" data-toggle="tab" href="#empresas"> Empresas </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" data-toggle="tab" href="#sucursales"> Sucursales </a>
+                  <a class="nav-link" data-toggle="tab" href="#sucursales"> - </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
                   <a class="nav-link" data-toggle="tab" href="#productos"> Productos </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                  <a class="nav-link" data-toggle="tab" href="#productos"> Pedidos </a>
                 </li>
               </ul>
       
               <div class="tab-content">
                 <div id="empresas" class="tab-pane active">
-                    <empresa-page [cliente]="clienteDetalle"></empresa-page>
+                    <empresa-tab-page [cliente]="clienteDetalle"></empresa-tab-page>
                 </div>
                 <div id="sucursales" class="tab-pane fade">
                     <sucursal-page [cliente]="clienteDetalle"></sucursal-page>
+                </div>
+                <div id="productos" class="tab-pane fade">
+                    <productos-page></productos-page>
                 </div>
                 <div id="productos" class="tab-pane fade">
                     <productos-page></productos-page>

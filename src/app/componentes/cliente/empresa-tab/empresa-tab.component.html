@@ -1,0 +1,79 @@
+<section class="content-header">
+  <fieldset>
+    <div class="table-responsive">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Nit</th>
+            <th>Contacto</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Sucursales</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empresa of listaEmpresa | paginate: { itemsPerPage: 5, currentPage: p}"
+            (click)="VerDetalle(cliente)">
+            <td (change)="ConsultaListaEmpresas()">{{empresa.nombre}}- {{cliente.idCliente}} </td>
+            <td>{{empresa.nit}}-{{empresa.digitoVerificacion}} </td>
+            <td>{{empresa.contacto}}</td>
+            <td>{{empresa.telefonoContacto}}</td>
+            <td>{{empresa.emailContacto}}</td>
+            <td><button class="btn btn-info" title="Sucursales" (click)="ConsultaListaSucursales(empresa)"><i
+                  class="fa fa-building-o"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </fieldset>
+</section>
+
+<!-- modal sucursal -->
+<div class="modal fade" bsModal #modalSucursal="bs-modal" id="modalSucursal" tabindex="-1" role="dialog"
+    aria-labelledby="modalSucursal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCreaModifica">Sucursales - {{nombreEmpresa}}</h5>
+                <button type="button" class="close" aria-label="Close" (click)="modalSucursal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <section class="modal-body">
+                <fieldset>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Tipo sucursal</th>
+                                    <th>Direcion</th>
+                                    <th>Telefono</th>
+                                    <th>Email</th>
+                                    <th>Contacto</th>
+                                    <th>Email Contac.</th>
+                                    <th>Telefono Contac.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let sucursal of listaSucursal | paginate: { itemsPerPage: 5, currentPage: q}">
+                                    <td>{{sucursal.nombre}}- {{sucursal.idSucursal}} </td>
+                                    <td>{{sucursal.idTipoSucursal}}-{{sucursal.idEmpresa}} </td>
+                                    <td>{{sucursal.direccion}} - {{sucursal.barrio}}</td>
+                                    <td>{{sucursal.telefono}}</td>
+                                    <td>{{sucursal.email}}</td>
+                                    <td>{{sucursal.contacto}}</td>
+                                    <td>{{sucursal.emailContacto}}</td>
+                                    <td>{{sucursal.telefonoContacto}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </section>
+        </div>
+    </div>
+</div>

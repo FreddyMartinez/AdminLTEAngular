@@ -12,11 +12,11 @@ import { ClienteModelo } from 'src/app/modelos/cliente.modelo';
 import { SucursalEmpresaModelo } from 'src/app/modelos/sucursal.empresa.modelo';
 
 @Component({
-  selector: 'empresa-page',
-  templateUrl: './empresa.component.html',
-  styleUrls: ['./empresa.component.css']
+  selector: 'empresa-tab-page',
+  templateUrl: './empresa-tab.component.html',
+  styleUrls: ['./empresa-tab.component.css']
 })
-export class EmpresaComponent implements OnInit, OnChanges {
+export class EmpresaTabComponent implements OnInit, OnChanges {
   @Input() cliente : ClienteModelo;
   @ViewChild('modalEliminar') modalEliminar: ModalDirective;
   @ViewChild('modalCreaModifica') modalCreaModifica: ModalDirective;

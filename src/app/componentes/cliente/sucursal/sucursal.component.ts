@@ -17,7 +17,6 @@ export class SucursalComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.cliente);
 
   }
 
