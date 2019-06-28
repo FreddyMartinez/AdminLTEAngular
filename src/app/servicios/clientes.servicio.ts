@@ -34,5 +34,10 @@ export class ClientesServicios {
         const url = Conexion.UrlApi.concat(Conexion.eliminarCliente);
         return this.http.post(url, cliente, httpOptions);
     }
+
+    ConsultarClienteReferidor(){
+        const url = Conexion.UrlApi.concat(Conexion.consultarClienteReferidor);
+        return this.http.post(url, "", httpOptions);
+    }
     //#endregion
 }

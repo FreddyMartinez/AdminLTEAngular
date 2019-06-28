@@ -58,7 +58,7 @@ export class Conexion{
     public static readonly editarCliente : string = 'Cliente/editarCliente';
     public static readonly eliminarCliente : string = 'Cliente/eliminarCliente';
     public static readonly consultarClientePrincipal : string = 'Cliente/consultarClientePrincipal';
-    public static readonly consultarClienteReferido : string = 'Cliente/consultarClienteReferido';
+    public static readonly consultarClienteReferidor : string = 'Cliente/consultarClienteReferidor';
     //#endregion
 
     //#region Empresas
