@@ -10,22 +10,35 @@ import { ModeloGenerico } from 'src/app/modelos/modelo.generico';
 import { EmpresaModelo } from 'src/app/modelos/empresa.modelo';
 import { ClienteModelo } from 'src/app/modelos/cliente.modelo';
 import { SucursalEmpresaModelo } from 'src/app/modelos/sucursal.empresa.modelo';
+import { ParametroConsulta } from 'src/app/modelos/parametro.consulta.modelo';
+import { ClientesServicios } from 'src/app/servicios/clientes.servicio';
 
 @Component({
   selector: 'empresa-page',
   templateUrl: './empresa.component.html',
-  styleUrls: ['./empresa.component.css']
+  styleUrls: ['./empresa.component.css'],
+  animations: [
+    trigger('myInsertRemoveTrigger', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('0.5s', style({ opacity: 1, height: '*' })),
+      ]),
+      transition(':leave', [
+        animate('0.5s', style({ opacity: 0, height: '0px' }))
+      ])
+    ])
+  ]
 })
-export class EmpresaComponent implements OnInit, OnChanges {
-  @Input() cliente : ClienteModelo;
+export class EmpresaComponent implements OnInit {
   @ViewChild('modalEliminar') modalEliminar: ModalDirective;
-  @ViewChild('modalCreaModifica') modalCreaModifica: ModalDirective;
   @ViewChild('modalSucursal') modalSucursal: ModalDirective;
   @ViewChild('modalCreaModificaSucursal') modalCreaModificaSucursal: ModalDirective;
   @ViewChild('modalEliminarSucursal') modalEliminarSucursal: ModalDirective;
   
   public p: number = 1;
   public q: number = 1;
+  public cliente: ModeloGenerico = new ModeloGenerico(undefined,undefined);
+  public listaClientes: ClienteModelo[];
   public listaEmpresa : EmpresaModelo[];
   public listaSucursal : SucursalEmpresaModelo[];
   public editarItem : boolean;
@@ -41,16 +54,13 @@ export class EmpresaComponent implements OnInit, OnChanges {
   constructor(
     public servicioGlobal: ServicioGlobal,
     public servicio: EmpresasServicios,
+    private servicioCliente: ClientesServicios,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
-    this.ConsultaListaEmpresas();
-  }
-
-  ngOnChanges() {
-    this.ConsultaListaEmpresas();
+    this.ConsultaListaClientes();
   }
 
   MuestraError(error: any) {
@@ -66,10 +76,26 @@ export class EmpresaComponent implements OnInit, OnChanges {
     this.empresaDetalle = empresa;
   }
 
+  ConsultaListaClientes(){
+    this.spinner.show();
+    let usuario: ParametroConsulta = new ParametroConsulta(this.servicioGlobal.getUsuario().usuario);
+    this.servicioCliente.ConsultarClientes(usuario).subscribe(
+      data=>{
+        this.spinner.hide();
+        if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+          this.listaClientes = data[Constantes.objetoRespuesta] as ClienteModelo[];
+        }
+      },
+      error=>{
+        this.MuestraError(error);
+      }
+    );
+  }
+
   ConsultaListaEmpresas(){
     this.spinner.show();
-    let buscardor: ModeloGenerico = new ModeloGenerico(this.cliente.idCliente, this.servicioGlobal.getUsuario().usuario);
-    this.servicio.ConsultarEmpresas(buscardor).subscribe(
+    this.cliente.valor = this.servicioGlobal.getUsuario().usuario;
+    this.servicio.ConsultarEmpresas(this.cliente).subscribe(
       data=>{
         this.spinner.hide();
         if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
@@ -105,10 +131,9 @@ export class EmpresaComponent implements OnInit, OnChanges {
 
   NuevoItem(){
     this.editarItem = false;
-    this.modalCreaModifica.show();
     this.tipoForm = "creación de empresa";
     this.itemEmpresa = new EmpresaModelo();
-    this.itemEmpresa.idCliente = this.cliente.idCliente;
+    this.itemEmpresa.idCliente = this.cliente.llave;
   }
 
   NuevoItemSucursal(){
@@ -121,7 +146,6 @@ export class EmpresaComponent implements OnInit, OnChanges {
 
   CargarItem(empresa : EmpresaModelo){
     this.editarItem = true;
-    this.modalCreaModifica.show();
     this.tipoForm = "modificación de empresa";
     this.itemEmpresa = empresa;
   }
@@ -134,25 +158,13 @@ export class EmpresaComponent implements OnInit, OnChanges {
   }
   
   CancelaItem(){
-    this.modalCreaModifica.hide();
     this.itemEmpresa = undefined;
-  }
-
-  CancelaItemSucursal(){
-    this.modalCreaModificaSucursal.hide();
-    this.itemSucursal = undefined;
   }
 
   AbreModalEliminar(empresa : EmpresaModelo){
     this.modalEliminar.show();
     this.itemEliminar = empresa;
   }
-
-  AbreModalEliminarSucursal(sucursal : SucursalEmpresaModelo){
-    this.modalEliminarSucursal.show();
-    this.itemEliminarSucursal = sucursal;
-  }
-
 
   EliminarEmpresa(){
     this.spinner.show();
@@ -173,28 +185,8 @@ export class EmpresaComponent implements OnInit, OnChanges {
     );
   }
 
-  EliminarSucursal(){
-    this.spinner.show();
-    this.servicio.EliminarSucursal(this.itemEliminarSucursal).subscribe(
-      data=>{
-        this.spinner.hide();
-        this.modalEliminarSucursal.hide();
-        if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-          this.itemEliminarSucursal = undefined;
-          this.itemSucursal = undefined;
-          this.toastr.success(data[Constantes.objetoRespuesta] as string);
-          this.ConsultaListaSucursales(this.itemEmpresa);
-        }
-      },
-      error=>{
-        this.MuestraError(error);
-      }
-    );
-  }
-
   GuardarEmpresa(){
     this.spinner.show();
-    debugger;
     this.itemEmpresa.usuario = this.servicioGlobal.getUsuario().usuario;
     if(this.editarItem){
       this.servicio.ModificarEmpresa(this.itemEmpresa).subscribe(
@@ -203,7 +195,6 @@ export class EmpresaComponent implements OnInit, OnChanges {
           if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
             this.itemEmpresa = undefined;
             this.toastr.success(data[Constantes.objetoRespuesta] as string);
-            this.modalCreaModifica.hide();
             this.ConsultaListaEmpresas();
           }
         },
@@ -212,14 +203,12 @@ export class EmpresaComponent implements OnInit, OnChanges {
         }
       );
     }else{
-      
       this.servicio.CrearEmpresa(this.itemEmpresa).subscribe(
         data=>{
           this.spinner.hide();
           if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
             this.itemEmpresa = undefined;
             this.toastr.success(data[Constantes.objetoRespuesta] as string);
-            this.modalCreaModifica.hide();
             this.ConsultaListaEmpresas();
           }
         },
@@ -229,42 +218,4 @@ export class EmpresaComponent implements OnInit, OnChanges {
       );
     }
   }
-
-  GuardarSucursal(){
-    this.spinner.show();
-    debugger;
-    this.itemSucursal.usuario = this.servicioGlobal.getUsuario().usuario;
-    if(this.editarItem){
-      this.servicio.ModificarSucursal(this.itemSucursal).subscribe(
-        data=>{
-          this.spinner.hide();
-          if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-            this.itemSucursal = undefined;
-            this.toastr.success(data[Constantes.objetoRespuesta] as string);
-            this.modalCreaModificaSucursal.hide();
-            this.ConsultaListaSucursales(this.itemEmpresa);
-          }
-        },
-        error=>{
-          this.MuestraError(error);
-        }
-      );
-    }else{  
-      this.servicio.CrearSucursal(this.itemSucursal).subscribe(
-        data=>{
-          this.spinner.hide();
-          if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-            this.itemSucursal = undefined;
-            this.toastr.success(data[Constantes.objetoRespuesta] as string);
-            this.modalCreaModificaSucursal.hide();
-            this.ConsultaListaSucursales(this.itemEmpresa);
-          }
-        },
-        error=>{
-          this.MuestraError(error);
-        }
-      );
-    }
-  }
-
 }

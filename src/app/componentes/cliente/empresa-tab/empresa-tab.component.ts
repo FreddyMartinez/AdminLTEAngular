@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, Input, OnChanges } from '@angular/core';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { Component, ViewChild, Input, OnChanges } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ModalDirective } from 'ngx-bootstrap';
@@ -16,7 +15,7 @@ import { SucursalEmpresaModelo } from 'src/app/modelos/sucursal.empresa.modelo';
   templateUrl: './empresa-tab.component.html',
   styleUrls: ['./empresa-tab.component.css']
 })
-export class EmpresaTabComponent implements OnInit, OnChanges {
+export class EmpresaTabComponent implements OnChanges {
   @Input() cliente : ClienteModelo;
   @ViewChild('modalEliminar') modalEliminar: ModalDirective;
   @ViewChild('modalCreaModifica') modalCreaModifica: ModalDirective;
@@ -24,7 +23,7 @@ export class EmpresaTabComponent implements OnInit, OnChanges {
   @ViewChild('modalCreaModificaSucursal') modalCreaModificaSucursal: ModalDirective;
   @ViewChild('modalEliminarSucursal') modalEliminarSucursal: ModalDirective;
   
-  public p: number = 1;
+  public pe: number = 1;
   public q: number = 1;
   public listaEmpresa : EmpresaModelo[];
   public listaSucursal : SucursalEmpresaModelo[];
@@ -44,10 +43,6 @@ export class EmpresaTabComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) {}
-
-  ngOnInit() {
-    this.ConsultaListaEmpresas();
-  }
 
   ngOnChanges() {
     this.ConsultaListaEmpresas();
@@ -73,7 +68,6 @@ export class EmpresaTabComponent implements OnInit, OnChanges {
       data=>{
         this.spinner.hide();
         if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-          
           this.listaEmpresa = data[Constantes.objetoRespuesta] as EmpresaModelo[];
         }
       },  
@@ -194,7 +188,6 @@ export class EmpresaTabComponent implements OnInit, OnChanges {
 
   GuardarEmpresa(){
     this.spinner.show();
-    debugger;
     this.itemEmpresa.usuario = this.servicioGlobal.getUsuario().usuario;
     if(this.editarItem){
       this.servicio.ModificarEmpresa(this.itemEmpresa).subscribe(
@@ -232,7 +225,6 @@ export class EmpresaTabComponent implements OnInit, OnChanges {
 
   GuardarSucursal(){
     this.spinner.show();
-    debugger;
     this.itemSucursal.usuario = this.servicioGlobal.getUsuario().usuario;
     if(this.editarItem){
       this.servicio.ModificarSucursal(this.itemSucursal).subscribe(

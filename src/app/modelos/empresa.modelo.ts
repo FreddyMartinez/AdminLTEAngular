@@ -1,5 +1,4 @@
 export class EmpresaModelo {
-
     idEmpresa: string;
     idCliente: string;
     nombre: string;
