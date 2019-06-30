@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="listaCliente">
             <table class="table">
                 <thead>
                     <tr>
@@ -41,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cliente of listaCliente | filterBy:filtro | paginate: { itemsPerPage: 5, currentPage: p}" 
+                    <tr *ngFor="let cliente of listaCliente | filterBy:filtro | paginate: { itemsPerPage: 5, currentPage: p, id:'pcliente'}" 
                     (click)="VerDetalle(cliente)"
                     [class.active]="cliente==clienteDetalle">
                         <td>{{cliente.idCliente}}</td>
@@ -54,8 +54,8 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="text-center">
-                <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" class="my-pagination"></pagination-controls>
+            <div class="text-center" *ngIf="listaCliente.length>5">
+                <pagination-controls id="pcliente" (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" class="my-pagination"></pagination-controls>
             </div>
         </div>
     </fieldset>
@@ -165,7 +165,7 @@
                     <empresa-tab-page [cliente]="clienteDetalle"></empresa-tab-page>
                 </div>
                 <div id="sucursales" class="tab-pane fade">
-                    <sucursal-page [cliente]="clienteDetalle"></sucursal-page>
+                    <empresa-tab-page [cliente]="clienteDetalle"></empresa-tab-page>
                 </div>
                 <div id="productos" class="tab-pane fade">
                     <productos-page></productos-page>
@@ -186,7 +186,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCreaModifica">Editar/Agregar cliente</h5>
+                <h5 class="modal-title" id="modalCreaModifica">Crear/Editar cliente</h5>
                 <button type="button" class="close" aria-label="Close" (click)="modalCreaModifica.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -199,9 +199,9 @@
                     <br />
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="id_cliente">Codigo</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input type="text" class="form-control" value="-1" id="id_cliente" [(ngModel)]="itemCliente.idCliente"
-                                name="id_cliente" [disabled]="editarItem||!editarItem" required>
+                                name="id_cliente" [disabled]="true" required>
                         </div>
                     </div>
 
@@ -228,7 +228,7 @@
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="tipoDocumento">Tipo de documento</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <select class="form-control" id="tipoDocumento" [(ngModel)]="itemCliente.tipoDocumento"
                                 #tipoDocumento="ngModel" required>
                                 <option *ngFor="let tipoDoc of listaTipoDocu" [value]="tipoDoc.llave">{{tipoDoc.valor}}
@@ -241,7 +241,7 @@
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="documento">Número de documento</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input type="text" class="form-control" id="documento" [(ngModel)]="itemCliente.documento"
                                 #documento="ngModel" required>
                             <span *ngIf="!documento.valid && documento.touched" class="warning-message">El documento de
@@ -251,7 +251,7 @@
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="email_cliente">Correo</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input type="text" class="form-control" id="email_cliente" [(ngModel)]="itemCliente.email"
                                 #email_cliente="ngModel"  required>
                             <span *ngIf="!email_cliente.valid && email_cliente.touched" class="warning-message">El
@@ -261,7 +261,7 @@
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="tel_cliente">Teléfonos</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input type="text" class="form-control" id="tel_cliente" [(ngModel)]="itemCliente.telefono"
                                 name="tel_cliente" #tel_cliente="ngModel" required>
                             <span *ngIf="!tel_cliente.valid && tel_cliente.touched" class="warning-message">El teléfono
@@ -271,7 +271,7 @@
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="dir_cliente">Dirección</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input type="text" class="form-control" id="dir_cliente" [(ngModel)]="itemCliente.direccion"
                                 name="dir_cliente" #dir_cliente="ngModel" required>
                             <span *ngIf="!dir_cliente.valid && dir_cliente.touched" class="warning-message">La dirección
@@ -279,40 +279,39 @@
                         </div>
                     </div>
 
-                    <div *ngIf="mostrar" class="form-group">
+                    <!-- <div *ngIf="mostrar" class="form-group">
                         <label class="col-md-4 control-label" for="dir_cliente">Barrio</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input type="text" class="form-control" id="dir_cliente" [(ngModel)]="itemCliente.barrio"
                                 name="dir_cliente" #dir_cliente="ngModel" required>
                             <span *ngIf="!dir_cliente.valid && dir_cliente.touched" class="warning-message">El barrio
                                 es requerido</span>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="editarItem">
                         <label class="col-md-4 control-label" for="cliente_principal">Cliente Principal</label>
-                        <div class="col-md-4">
-                                <select class="form-control" id="cliente_principal" [(ngModel)]="itemCliente.clientePrincipal"
-                                #cliente_principal="ngModel" [disabled]="editarItem"  required >
-                                <option *ngFor="let listaCli of listaCliente" [value]="listaCli.idCliente">{{listaCli.nombre}} {{listaCli.apellido}}
-                                </option>
-                            </select>
-                            <span *ngIf="!cliente_principal.valid && cliente_principal.touched" class="warning-message">El cliente principal es requerido</span>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" value="-1" id="cliente_principal" [(ngModel)]="itemCliente.clientePrincipal"
+                                name="id_cliente" [disabled]="true" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="cliente_referidor">Cliente Referidor</label>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" id="cliente_referidor" [(ngModel)]="itemCliente.clienteReferidor"
+                        <div class="col-md-6">
+                            <select class="form-control" id="cliente_referidor" [(ngModel)]="itemCliente.clienteReferidor"
                                 name="cliente_referidor" #cliente_referidor="ngModel" required>
+                                <option *ngFor="let listaCli of listaClienteReferidor" [value]="listaCli.llave">{{listaCli.valor}} {{listaCli.apellido}}
+                                </option>
+                            </select>
                             <span *ngIf="!cliente_referidor.valid && cliente_referidor.touched" class="warning-message">El cliente referidor es requerido</span>
                         </div>
                     </div>
                         
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="cliente_activo">Activo</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input type="checkbox" id="cliente_activo" [(ngModel)]="itemCliente.activo" name="cliente_activo">                    
                         </div>
                     </div>

@@ -12,7 +12,6 @@ import { ServicioGlobal } from 'src/app/servicios/global.servicio';
 import { UsuariosServicios } from 'src/app/servicios/usuarios.servicio';
 import { forkJoin } from 'rxjs';
 import { EmpresasServicios } from 'src/app/servicios/empresas.servicio';
-import { debug } from 'util';
 
 @Component({
   selector: 'cliente-form',
@@ -43,6 +42,7 @@ export class ClienteComponent implements OnInit {
   public editarItem : boolean;
   public listaRoles: ModeloGenerico[];
   public listaTipoDocu: ModeloGenerico[];
+  public listaClienteReferidor : ModeloGenerico[];
 
   constructor(
     public servicioGlobal: ServicioGlobal,
@@ -86,11 +86,15 @@ export class ClienteComponent implements OnInit {
 
   ConsultarListasSeleccion(){
     forkJoin([
-      this.servicioUsr.ConsultarTiposDocumento()
+      this.servicioUsr.ConsultarTiposDocumento(),
+      this.servicio.ConsultarClienteReferidor()
     ]).subscribe(
-      ([documentos])=>{
+      ([documentos,clinteRef])=>{
         if (documentos[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
           this.listaTipoDocu = documentos[Constantes.objetoRespuesta] as ModeloGenerico[];
+        }
+        if (clinteRef[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+          this.listaClienteReferidor = clinteRef[Constantes.objetoRespuesta] as ModeloGenerico[];
         }
       },
       error=>{
@@ -106,7 +110,7 @@ export class ClienteComponent implements OnInit {
   NuevoItem(){
     this.editarItem = false;
     this.modalCreaModifica.show();
-    this.tipoForm = "creación de Clientes";
+    this.tipoForm = "creación de Cliente";
     this.itemCliente = new ClienteModelo();
   }
 
@@ -159,7 +163,6 @@ export class ClienteComponent implements OnInit {
 
   GuardarCliente(){
     this.spinner.show();
-    debugger;
     this.itemCliente.usuario = this.servicioGlobal.getUsuario().usuario;
     if(this.editarItem){
       this.servicio.ModificarCliente(this.itemCliente).subscribe(

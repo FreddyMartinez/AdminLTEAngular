@@ -7,6 +7,7 @@ import { SucursalComponent } from './sucursal/sucursal.component';
 const routes: Routes = [
   { path: 'cliente-form', component: ClienteComponent },
   { path: 'empresa-form', component: EmpresaComponent },
+  { path: 'sucursal-form', component: SucursalComponent },
   {
     path: '',
     redirectTo: 'cliente-form',
