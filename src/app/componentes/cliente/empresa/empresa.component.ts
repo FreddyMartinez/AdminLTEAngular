@@ -46,7 +46,6 @@ export class EmpresaComponent implements OnInit {
   public itemEmpresa: EmpresaModelo;
   public itemSucursal: SucursalEmpresaModelo;
   public itemEliminar : EmpresaModelo;
-  public empresaDetalle : EmpresaModelo;
   public nombreEmpresa: string;
   public idEmpresa: string;
   public itemEliminarSucursal: SucursalEmpresaModelo;
@@ -70,10 +69,6 @@ export class EmpresaComponent implements OnInit {
     } else {
       this.toastr.error(error[Constantes.mensajeError][Constantes.mensajeRespuesta], Constantes.tituloError);
     }
-  }
-
-  VerDetalle(empresa : EmpresaModelo){
-    this.empresaDetalle = empresa;
   }
 
   ConsultaListaClientes(){

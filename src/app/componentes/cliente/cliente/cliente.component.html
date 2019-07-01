@@ -302,7 +302,7 @@
                         <div class="col-md-6">
                             <select class="form-control" id="cliente_referidor" [(ngModel)]="itemCliente.clienteReferidor"
                                 name="cliente_referidor" #cliente_referidor="ngModel" required>
-                                <option *ngFor="let listaCli of listaClienteReferidor" [value]="listaCli.llave">{{listaCli.valor}} {{listaCli.apellido}}
+                                <option *ngFor="let listaCli of listaClienteReferidor" [value]="listaCli.llave">{{listaCli.valor}}
                                 </option>
                             </select>
                             <span *ngIf="!cliente_referidor.valid && cliente_referidor.touched" class="warning-message">El cliente referidor es requerido</span>
@@ -335,7 +335,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalEliminar">Eliminar Ítem del Menú</h5>
+                <h5 class="modal-title" id="modalEliminar">Eliminar Cliente</h5>
                 <button type="button" class="close" aria-label="Close" (click)="modalEliminar.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>

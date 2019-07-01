@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Conexion } from '../util/conexion';
-import { ParametroConsulta } from '../modelos/parametro.consulta.modelo';
-import { ClienteModelo } from '../modelos/cliente.modelo';
 import { ModeloGenerico } from '../modelos/modelo.generico';
 import { EmpresaModelo } from '../modelos/empresa.modelo';
 import { SucursalEmpresaModelo } from '../modelos/sucursal.empresa.modelo';
@@ -17,13 +15,12 @@ export class EmpresasServicios {
     
     
     constructor(private http: HttpClient){
-        
     }
 
     //#region Clientes
-    ConsultarEmpresas(empresa: ModeloGenerico){
+    ConsultarEmpresas(cliente: ModeloGenerico){
         const url = Conexion.UrlApi.concat(Conexion.consultarEmpresas);
-        return this.http.post(url, empresa, httpOptions);
+        return this.http.post(url, cliente, httpOptions);
     }
 
     ModificarEmpresa(empresa: EmpresaModelo){
@@ -62,6 +59,11 @@ export class EmpresasServicios {
     EliminarSucursal(sucursal: SucursalEmpresaModelo){
         const url = Conexion.UrlApi.concat(Conexion.eliminarSucursalEmpresa);
         return this.http.post(url, sucursal, httpOptions);
+    }
+
+    ConsultarTipoSucursal(){
+        const url = Conexion.UrlApi.concat(Conexion.consultarTipoSucursal);
+        return this.http.post(url, "", httpOptions);
     }
     //#endregion
 }

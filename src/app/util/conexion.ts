@@ -1,5 +1,5 @@
 export class Conexion{
-    // public static readonly UrlApi : string = 'http://servicios.wanfrankj.com/';
+    // public static readonly UrlApi : string = 'http://localhost/wfservicios';
     public static readonly UrlApi : string = 'http://localhost/SistemaPOS.Servicios/';
 
     //#region Accesos
@@ -73,5 +73,6 @@ export class Conexion{
     public static readonly crearSucursalEmpresa : string = 'Empresas/crearSucursalEmpresa';
     public static readonly editarSucursalEmpresa : string = 'Empresas/editarSucursalEmpresa';
     public static readonly eliminarSucursalEmpresa : string = 'Empresas/eliminarSucursalEmpresa';
+    public static readonly consultarTipoSucursal : string = 'Empresas/consultarTipoSucursal';
     //#endregion
 }
