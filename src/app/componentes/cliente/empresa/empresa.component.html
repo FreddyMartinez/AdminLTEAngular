@@ -15,7 +15,7 @@
                 <label class="col-md-4 control-label" for="id_empresa">Seleccione el cliente</label>
                 <div class="col-md-6">
                     <select class="form-control" id="cliente_principal" [(ngModel)]="cliente.llave"
-                        #cliente_principal="ngModel" [disabled]="editarItem" required>
+                        #cliente_principal="ngModel" required>
                         <option *ngFor="let cliente of listaClientes" [value]="cliente.idCliente">{{cliente.nombre}}
                             {{cliente.apellido}}
                         </option>
@@ -25,13 +25,13 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for=""></label>
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-info" (click)="ConsultaListaEmpresas()">Buscar</button>
+                    <button type="button" class="btn btn-info" (click)="ConsultaListaEmpresas()" [disabled]="!cliente.llave">Buscar</button>
                 </div>
             </div>
         </div>
     </fieldset>
     <fieldset *ngIf="listaEmpresa">
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="listaEmpresa.length>0">
             <table class="table">
                 <thead>
                     <tr>
@@ -67,6 +67,9 @@
                     nextLabel="Siguiente" class="my-pagination"></pagination-controls>
             </div>
         </div>
+        <div *ngIf="listaEmpresa.length==0">
+            <p>Este usuario no tiene empresas registradas.</p>
+        </div>
         <div class="col-md-4 text-center">
             <button class="btn btn-success" title="Añadir empresa" (click)="NuevoItem()">
                 <i class="fa fa-plus-square"></i> Crear Empresa</button>
@@ -91,8 +94,12 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="id_cliente">Cliente</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control" id="id_cliente" [(ngModel)]="itemEmpresa.idCliente"
-                        name="id_cliente" [disabled]="editarItem||!editarItem" required>
+                    <select class="form-control" id="id_cliente" [(ngModel)]="itemEmpresa.idCliente"
+                        #id_cliente="ngModel" name="id_cliente" [disabled]="true" required>
+                        <option *ngFor="let cliente of listaClientes" [value]="cliente.idCliente">{{cliente.nombre}}
+                            {{cliente.apellido}}
+                        </option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -212,7 +219,7 @@
 <!-- modal sucursal -->
 <div class="modal fade" bsModal #modalSucursal="bs-modal" id="modalSucursal" tabindex="-1" role="dialog"
     aria-labelledby="modalSucursal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-wide" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalCreaModifica">Sucursales - {{nombreEmpresa}}</h5>
@@ -228,34 +235,24 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Tipo sucursal</th>
                                     <th>Direcion</th>
                                     <th>Telefono</th>
                                     <th>Email</th>
                                     <th>Contacto</th>
                                     <th>Email Contac.</th>
                                     <th>Telefono Contac.</th>
-                                    <th>Editar</th>
-                                    <th>Eliminar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr
                                     *ngFor="let sucursal of listaSucursal | paginate: { itemsPerPage: 5, currentPage: q}">
-                                    <td>{{sucursal.nombre}}- {{sucursal.idSucursal}} </td>
-                                    <td>{{sucursal.idTipoSucursal}}-{{sucursal.idEmpresa}} </td>
-                                    <td>{{sucursal.direccion}} - {{sucursal.barrio}}</td>
+                                    <td>{{sucursal.nombre}}</td>
+                                    <td>{{sucursal.direccion}}</td>
                                     <td>{{sucursal.telefono}}</td>
                                     <td>{{sucursal.email}}</td>
                                     <td>{{sucursal.contacto}}</td>
                                     <td>{{sucursal.emailContacto}}</td>
                                     <td>{{sucursal.telefonoContacto}}</td>
-                                    <td><button class="btn btn-warning" title="Editar sucursal"
-                                            (click)="CargarItemSucursal(sucursal)"><i class="fa fa-pencil"></i></button>
-                                    </td>
-                                    <td><button class="btn btn-danger" title="Eiminar sucursal"
-                                            (click)="AbreModalEliminarSucursal(sucursal)"><i
-                                                class="fa fa-trash"></i></button></td>
                                 </tr>
                             </tbody>
                         </table>

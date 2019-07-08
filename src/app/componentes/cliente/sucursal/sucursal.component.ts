@@ -105,6 +105,7 @@ export class SucursalComponent implements OnInit {
     this.servicio.ConsultarSucursales(buscardor).subscribe(
       data=>{
         this.spinner.hide();
+        this.itemSucursal = undefined;
         if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
           this.listaSucursal = data[Constantes.objetoRespuesta] as SucursalEmpresaModelo[];
         }
@@ -152,6 +153,7 @@ export class SucursalComponent implements OnInit {
 
   EliminarSucursal(){
     this.spinner.show();
+    this.itemEliminar.usuario = this.servicioGlobal.getUsuario().usuario;
     this.servicio.EliminarSucursal(this.itemEliminar).subscribe(
       data=>{
         this.spinner.hide();

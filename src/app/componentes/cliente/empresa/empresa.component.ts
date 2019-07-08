@@ -32,8 +32,6 @@ import { ClientesServicios } from 'src/app/servicios/clientes.servicio';
 export class EmpresaComponent implements OnInit {
   @ViewChild('modalEliminar') modalEliminar: ModalDirective;
   @ViewChild('modalSucursal') modalSucursal: ModalDirective;
-  @ViewChild('modalCreaModificaSucursal') modalCreaModificaSucursal: ModalDirective;
-  @ViewChild('modalEliminarSucursal') modalEliminarSucursal: ModalDirective;
   
   public p: number = 1;
   public q: number = 1;
@@ -93,8 +91,8 @@ export class EmpresaComponent implements OnInit {
     this.servicio.ConsultarEmpresas(this.cliente).subscribe(
       data=>{
         this.spinner.hide();
+        this.itemEmpresa = undefined;
         if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-          
           this.listaEmpresa = data[Constantes.objetoRespuesta] as EmpresaModelo[];
         }
       },  
@@ -111,6 +109,7 @@ export class EmpresaComponent implements OnInit {
       data=>{
         this.spinner.hide();
         if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
+          console.log(data[Constantes.objetoRespuesta]);
           this.listaSucursal = data[Constantes.objetoRespuesta] as SucursalEmpresaModelo[];
           this.nombreEmpresa = empresa.nombre;
           this.idEmpresa = empresa.idEmpresa;
@@ -131,25 +130,10 @@ export class EmpresaComponent implements OnInit {
     this.itemEmpresa.idCliente = this.cliente.llave;
   }
 
-  NuevoItemSucursal(){
-    this.editarItem = false;
-    this.modalCreaModificaSucursal.show();
-    this.tipoForm = "creación de sucursal";
-    this.itemSucursal = new SucursalEmpresaModelo();
-    this.itemSucursal.idEmpresa = this.idEmpresa;
-  }
-
   CargarItem(empresa : EmpresaModelo){
     this.editarItem = true;
     this.tipoForm = "modificación de empresa";
     this.itemEmpresa = empresa;
-  }
-
-  CargarItemSucursal(sucursal : SucursalEmpresaModelo){
-    this.editarItem = true;
-    this.modalCreaModificaSucursal.show();
-    this.tipoForm = "modificación de sucursal";
-    this.itemSucursal = sucursal;
   }
   
   CancelaItem(){
@@ -163,6 +147,7 @@ export class EmpresaComponent implements OnInit {
 
   EliminarEmpresa(){
     this.spinner.show();
+    this.itemEliminar.usuario = this.servicioGlobal.getUsuario().usuario;
     this.servicio.EliminarEmpresa(this.itemEliminar).subscribe(
       data=>{
         this.spinner.hide();
@@ -175,6 +160,7 @@ export class EmpresaComponent implements OnInit {
         }
       },
       error=>{
+        this.modalEliminar.hide();
         this.MuestraError(error);
       }
     );

@@ -18,3 +18,7 @@
     background-color:#666 !important;
     color: white;
 }
+
+.modal-wide{
+    width: 85% !important;
+}

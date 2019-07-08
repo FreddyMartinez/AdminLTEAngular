@@ -14,7 +14,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="cliente">Seleccione el cliente</label>
         <div class="col-md-6">
-          <select class="form-control" id="inCliente" [(ngModel)]="cliente" #inCliente="ngModel" [disabled]="editarItem"
+          <select class="form-control" id="inCliente" [(ngModel)]="cliente" #inCliente="ngModel"
             (change)="ConsultaListaEmpresas()" required>
             <option *ngFor="let cliente of listaClientes" [value]="cliente.idCliente">{{cliente.nombre}}
               {{cliente.apellido}}
@@ -25,7 +25,7 @@
       <div class="form-group" *ngIf="listaEmpresas">
         <label class="col-md-4 control-label" for="empresa">Seleccione la empresa</label>
         <div class="col-md-6">
-          <select class="form-control" id="inEempresa" [(ngModel)]="empresa" #inEmpresa="ngModel" [disabled]="editarItem"
+          <select class="form-control" id="inEempresa" [(ngModel)]="empresa" #inEmpresa="ngModel"
             required>
             <option *ngFor="let empresa of listaEmpresas" [value]="empresa.idEmpresa">{{empresa.nombre}}
             </option>
@@ -138,7 +138,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label class="col-md-4 control-label" for="barrio">Barrio</label>
         <div class="col-md-6">
           <input type="text" class="form-control" id="barrio" [(ngModel)]="itemSucursal.barrio" #barrio="ngModel"
@@ -146,7 +146,8 @@
           <span *ngIf="!barrio.valid && barrio.touched" class="warning-message">El barrio
             es requerido</span>
         </div>
-      </div>
+      </div> -->
+
       <div class="form-group">
         <label class="col-md-4 control-label" for="telefono">Telefono </label>
         <div class="col-md-6">

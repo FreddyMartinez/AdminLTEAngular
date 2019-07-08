@@ -31,7 +31,7 @@ export class SucursalEmpresaModelo {
         this.idEmpresa = idEmpresa;
         this.nombre = nombre;
         this.direccion = direccion;
-        this.barrio = barrio;
+        this.barrio = barrio || "-1";
         this.telefono = telefono;
         this.email = email;
         this.contacto = contacto;

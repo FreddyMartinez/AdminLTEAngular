@@ -35,7 +35,7 @@
 <!-- modal sucursal -->
 <div class="modal fade" bsModal #modalSucursal="bs-modal" id="modalSucursal" tabindex="-1" role="dialog"
     aria-labelledby="modalSucursal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-wide" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalCreaModifica">Sucursales - {{nombreEmpresa}}</h5>
@@ -50,7 +50,6 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Tipo sucursal</th>
                                     <th>Direcion</th>
                                     <th>Telefono</th>
                                     <th>Email</th>
@@ -62,9 +61,8 @@
                             <tbody>
                                 <tr
                                     *ngFor="let sucursal of listaSucursal | paginate: { itemsPerPage: 5, currentPage: q, id:'psucursal'}">
-                                    <td>{{sucursal.nombre}}- {{sucursal.idSucursal}} </td>
-                                    <td>{{sucursal.idTipoSucursal}}-{{sucursal.idEmpresa}} </td>
-                                    <td>{{sucursal.direccion}} - {{sucursal.barrio}}</td>
+                                    <td>{{sucursal.nombre}}</td>
+                                    <td>{{sucursal.direccion}}</td>
                                     <td>{{sucursal.telefono}}</td>
                                     <td>{{sucursal.email}}</td>
                                     <td>{{sucursal.contacto}}</td>
