@@ -1,5 +1,5 @@
 export class Conexion{
-    // public static readonly UrlApi : string = 'http://localhost/wfservicios';
+    // public static readonly UrlApi : string = 'http://localhost/wfservicios/';
     public static readonly UrlApi : string = 'http://localhost/SistemaPOS.Servicios/';
 
     //#region Accesos
