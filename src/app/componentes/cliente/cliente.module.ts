@@ -14,6 +14,7 @@ import { ProductosComponent } from './productos/productos.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EmpresaTabComponent } from './empresa-tab/empresa-tab.component';
+import { UsuariosTabComponent } from './usuarios-tab/usuarios-tab.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,6 @@ import { EmpresaTabComponent } from './empresa-tab/empresa-tab.component';
   providers: [
     ClientesServicios
   ],
-  declarations: [ClienteComponent, EmpresaComponent, SucursalComponent, ProductosComponent, EmpresaTabComponent]
+  declarations: [ClienteComponent, EmpresaComponent, SucursalComponent, ProductosComponent, EmpresaTabComponent, UsuariosTabComponent]
 })
 export class ClienteModule { }

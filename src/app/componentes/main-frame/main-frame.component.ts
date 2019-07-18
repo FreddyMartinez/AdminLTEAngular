@@ -4,6 +4,7 @@ import { Constantes } from 'src/app/util/constantes';
 import { ItemMenuLateral } from 'src/app/modelos/item.menu.lateral.model';
 import { UsuarioModelo } from 'src/app/modelos/usuario.modelo';
 import { ServicioGlobal } from 'src/app/servicios/global.servicio';
+import { ParametroConsulta } from 'src/app/modelos/parametro.consulta.modelo';
 
 @Component({
   selector: 'app-main-frame',
@@ -37,7 +38,8 @@ export class MainFrameComponent implements OnInit {
   }
 
   ConsultaMenuLateral(){
-    this.servicioAccesos.ConsultarMenuLateral().subscribe(
+    let param: ParametroConsulta = new ParametroConsulta(this.servicioGlobal.getUsuario().usuario);
+    this.servicioAccesos.ConsultarMenuLateral(param).subscribe(
       data=>{
         if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
           this.listaMenu = data[Constantes.objetoRespuesta] as ItemMenuLateral[];

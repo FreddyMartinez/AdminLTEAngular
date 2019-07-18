@@ -5,6 +5,7 @@ import { MenuModelo } from '../modelos/menu.modelo';
 import { GrupoModelo } from '../modelos/grupo.modelo';
 import { PermisoModelo } from '../modelos/permiso.modelo';
 import { UsuarioModelo } from '../modelos/usuario.modelo';
+import { ParametroConsulta } from '../modelos/parametro.consulta.modelo';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -26,9 +27,9 @@ export class AccesosServicios {
         return this.http.post(url, usuario, httpOptions);
     }
     
-    ConsultarMenuLateral(){
+    ConsultarMenuLateral(usuario:ParametroConsulta){
         const url = Conexion.UrlApi.concat(Conexion.consultarMenuLateral);
-        return this.http.post(url, "", httpOptions);
+        return this.http.post(url, usuario, httpOptions);
     }  
 
     ConsultarMenu(){

@@ -150,13 +150,13 @@
                   <a class="nav-link" data-toggle="tab" href="#empresas"> Empresas </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" data-toggle="tab" href="#sucursales"> Usuarios </a>
+                  <a class="nav-link" data-toggle="tab" href="#usuarios"> Usuarios </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
                   <a class="nav-link" data-toggle="tab" href="#productos"> Productos </a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" data-toggle="tab" href="#productos"> Pedidos </a>
+                  <a class="nav-link" data-toggle="tab" href="#pedidos"> Pedidos </a>
                 </li>
               </ul>
       
@@ -164,13 +164,13 @@
                 <div id="empresas" class="tab-pane active">
                     <empresa-tab-page [cliente]="clienteDetalle"></empresa-tab-page>
                 </div>
-                <div id="sucursales" class="tab-pane fade">
-                    <productos-page></productos-page>
+                <div id="usuarios" class="tab-pane fade">
+                    <usuarios-tab [cliente]="clienteDetalle"></usuarios-tab>
                 </div>
                 <div id="productos" class="tab-pane fade">
                     <productos-page></productos-page>
                 </div>
-                <div id="productos" class="tab-pane fade">
+                <div id="pedidos" class="tab-pane fade">
                     <productos-page></productos-page>
                 </div>
               </div>

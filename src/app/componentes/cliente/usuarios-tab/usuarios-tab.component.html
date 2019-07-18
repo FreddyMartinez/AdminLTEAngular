@@ -1,0 +1,29 @@
+<section class="content container-fluid">
+  <fieldset>
+      <div class="table-responsive" *ngIf="listaUsuario && listaUsuario.length>0">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Usuario</th>
+                      <th>Correo</th>
+                      <th>Nombre</th>
+                      <th>Documento</th>
+                      <th>Email</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let usuario of listaUsuario">
+                      <td>{{usuario.usuario}}</td>
+                      <td>{{usuario.email}}</td>
+                      <td>{{usuario.nombre}} {{usuario.apellidos}}</td>
+                      <td>{{usuario.documento}}</td>
+                      <td>{{usuario.email}}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div *ngIf="!listaUsuario || listaUsuario.length==0">
+          <p>El cliente no tiene usuarios creados</p>
+      </div>
+  </fieldset>
+</section>

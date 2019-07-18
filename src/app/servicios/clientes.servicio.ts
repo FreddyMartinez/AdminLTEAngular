@@ -40,4 +40,9 @@ export class ClientesServicios {
         return this.http.post(url, "", httpOptions);
     }
     //#endregion
+
+    ConsultarUsuarios(parametro: ParametroConsulta){
+        const url = Conexion.UrlApi.concat(Conexion.consultarUsuariosCliente);
+        return this.http.post(url, parametro, httpOptions);
+    }
 }

@@ -20,8 +20,6 @@ export class EmpresaTabComponent implements OnChanges {
   @ViewChild('modalEliminar') modalEliminar: ModalDirective;
   @ViewChild('modalCreaModifica') modalCreaModifica: ModalDirective;
   @ViewChild('modalSucursal') modalSucursal: ModalDirective;
-  @ViewChild('modalCreaModificaSucursal') modalCreaModificaSucursal: ModalDirective;
-  @ViewChild('modalEliminarSucursal') modalEliminarSucursal: ModalDirective;
   
   public pe: number = 1;
   public q: number = 1;
@@ -105,26 +103,11 @@ export class EmpresaTabComponent implements OnChanges {
     this.itemEmpresa.idCliente = this.cliente.idCliente;
   }
 
-  NuevoItemSucursal(){
-    this.editarItem = false;
-    this.modalCreaModificaSucursal.show();
-    this.tipoForm = "creación de sucursal";
-    this.itemSucursal = new SucursalEmpresaModelo();
-    this.itemSucursal.idEmpresa = this.idEmpresa;
-  }
-
   CargarItem(empresa : EmpresaModelo){
     this.editarItem = true;
     this.modalCreaModifica.show();
     this.tipoForm = "modificación de empresa";
     this.itemEmpresa = empresa;
-  }
-
-  CargarItemSucursal(sucursal : SucursalEmpresaModelo){
-    this.editarItem = true;
-    this.modalCreaModificaSucursal.show();
-    this.tipoForm = "modificación de sucursal";
-    this.itemSucursal = sucursal;
   }
   
   CancelaItem(){
@@ -132,58 +115,9 @@ export class EmpresaTabComponent implements OnChanges {
     this.itemEmpresa = undefined;
   }
 
-  CancelaItemSucursal(){
-    this.modalCreaModificaSucursal.hide();
-    this.itemSucursal = undefined;
-  }
-
   AbreModalEliminar(empresa : EmpresaModelo){
     this.modalEliminar.show();
     this.itemEliminar = empresa;
-  }
-
-  AbreModalEliminarSucursal(sucursal : SucursalEmpresaModelo){
-    this.modalEliminarSucursal.show();
-    this.itemEliminarSucursal = sucursal;
-  }
-
-
-  EliminarEmpresa(){
-    this.spinner.show();
-    this.servicio.EliminarEmpresa(this.itemEliminar).subscribe(
-      data=>{
-        this.spinner.hide();
-        this.modalEliminar.hide();
-        if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-          this.itemEliminar = undefined;
-          this.itemEmpresa = undefined;
-          this.toastr.success(data[Constantes.objetoRespuesta] as string);
-          this.ConsultaListaEmpresas();
-        }
-      },
-      error=>{
-        this.MuestraError(error);
-      }
-    );
-  }
-
-  EliminarSucursal(){
-    this.spinner.show();
-    this.servicio.EliminarSucursal(this.itemEliminarSucursal).subscribe(
-      data=>{
-        this.spinner.hide();
-        this.modalEliminarSucursal.hide();
-        if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-          this.itemEliminarSucursal = undefined;
-          this.itemSucursal = undefined;
-          this.toastr.success(data[Constantes.objetoRespuesta] as string);
-          this.ConsultaListaSucursales(this.itemEmpresa);
-        }
-      },
-      error=>{
-        this.MuestraError(error);
-      }
-    );
   }
 
   GuardarEmpresa(){
@@ -222,41 +156,4 @@ export class EmpresaTabComponent implements OnChanges {
       );
     }
   }
-
-  GuardarSucursal(){
-    this.spinner.show();
-    this.itemSucursal.usuario = this.servicioGlobal.getUsuario().usuario;
-    if(this.editarItem){
-      this.servicio.ModificarSucursal(this.itemSucursal).subscribe(
-        data=>{
-          this.spinner.hide();
-          if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-            this.itemSucursal = undefined;
-            this.toastr.success(data[Constantes.objetoRespuesta] as string);
-            this.modalCreaModificaSucursal.hide();
-            this.ConsultaListaSucursales(this.itemEmpresa);
-          }
-        },
-        error=>{
-          this.MuestraError(error);
-        }
-      );
-    }else{  
-      this.servicio.CrearSucursal(this.itemSucursal).subscribe(
-        data=>{
-          this.spinner.hide();
-          if (data[Constantes.codigoRespuesta] == Constantes.respuestaCorrecta) {
-            this.itemSucursal = undefined;
-            this.toastr.success(data[Constantes.objetoRespuesta] as string);
-            this.modalCreaModificaSucursal.hide();
-            this.ConsultaListaSucursales(this.itemEmpresa);
-          }
-        },
-        error=>{
-          this.MuestraError(error);
-        }
-      );
-    }
-  }
-
 }
