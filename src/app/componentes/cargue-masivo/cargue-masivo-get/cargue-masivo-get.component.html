@@ -1,0 +1,23 @@
+<style>
+
+</style>
+
+<h6 class="app-modal-label">Realizar nuevo Cargue Masivo</h6>
+
+<div class="app-modal-content" style="height: 528px !important;">
+    <input class="btn btn-default" type="file" (change)="onChange($event.target.files)">
+    <div>
+        <h4>Contenido del archivo</h4>
+        <pre> {{fileContent}} </pre>
+    </div>
+</div>
+
+<div class="app-modal-actions">
+    <button type="button" class="btn btn-secondary" style=" margin-right: 10px;" (click)="close()">Cancelar</button>
+    <button type="button" class="btn btn-primary" style=" margin-right: 10px;" (click)="realizarCargueMasivo()">Cargar archivo</button>
+</div>
+
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-fussion" fullScreen="true">
+    <p style="color: white"> Cargando... </p>
+</ngx-spinner>

@@ -1,0 +1,91 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    {{nombre_pagina_titulo}}
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Cargues Masivos</li>
+    <li class="active">{{nombre_pagina == 'CM Clientes' ? 'CM Cliente' : 'CM Inventario'}}</li>
+    <li class="active">{{nombre_pagina}}</li>
+  </ol>
+</section>
+
+
+
+<section class="content container-fluid" style="padding-right: 0">
+
+  <fieldset>
+
+    <p class="centered  col-md-8" style="margin-top: 12px">Ítems del {{nombre_pagina_titulo}}.</p>
+    <div class="form-group col-md-4" style="float: right !important; padding-right: 0">
+      <div class="col-sm-8" style="text-align: end; float: right !important;">
+        <select class="form-control" id="transaccion" name="transaccion" [(ngModel)]="transaccion" (change)='ObtenerCarguesMasivos()'>
+          <option value="O">Procesados con Éxito</option>
+          <option value="T">Todos</option>
+        </select>
+      </div>
+      <label for="sort" class="col-md-2 control-label" style="text-align: end;margin-top: 6px; float: right !important;">Estado:
+      </label>
+    </div>
+
+
+
+    <div class="table-responsive col-md-12">
+      <div class="row col-md-12" style="padding-left: 0; margin-left: 0">
+        <span style="padding-left: 0; padding-top: 8px;margin-right: 5px">Mostrar</span>
+        <select name="example1_length" aria-controls="example1" [(ngModel)]="itemsPerPageDet" style="width: 80px !important;">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+        </select>
+        <span style="padding-top: 8px;margin-left: 5px">registros</span>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID Cargue</th>
+            <th>Nombre</th>
+            <th>Éxito</th>
+            <th>Usuario</th>
+            <th>Fecha Creación</th>
+            <th style="text-align: center">Ver Detalle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cargue of listaCargues | paginate: { itemsPerPage: itemsPerPageDet, currentPage: pDet , id: 'pDet'}">
+            <td style="vertical-align:middle">{{cargue.id}}</td>
+            <td style="vertical-align:middle">{{cargue.nombre_archivo}}</td>
+            <td style="vertical-align:middle">
+              <input type="checkbox" name="chkExito" [(ngModel)]="cargue.exito" disabled>
+            </td>
+            <td style="vertical-align:middle">{{cargue.usr_creacion}}</td>
+            <td style="vertical-align:middle">{{cargue.fecha_creacion | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td style="text-align: center">
+              <!-- <button class="btn btn-info" (click)="verCargueMasivoDet('TD',cargue)" style="margin-right:3px" title="Ver detalle completo">
+                <i class="fa fa-list-ul" style="font-size: 20px;"></i>
+              </button> -->
+              <button class="btn btn-success" (click)="verCargueMasivoDet('GE',cargue)" title="Ver líneas procesadas con éxito">
+                <i class="fa fa-list-ul" style="font-size: 20px;"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <pagination-controls (pageChange)="pDet = $event" id="pDet" previousLabel="Anterior" nextLabel="Siguiente"
+          class="my-pagination"></pagination-controls>
+      </div>
+    </div>
+    <div class="table-responsive col-md-12">
+      <button class="btn btn-success" title="Añadir ítem" (click)="getCargueMasivo()"><i class="fa fa-plus-square"></i></button>
+    </div>
+  </fieldset>
+</section>
+
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-fussion" fullScreen="true">
+  <p style="color: white"> {{msgSpinner}} </p>
+</ngx-spinner>

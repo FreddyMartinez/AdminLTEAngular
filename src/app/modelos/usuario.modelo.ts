@@ -2,6 +2,7 @@ export class UsuarioModelo {
 
     usuario: string;
     tipoDocumento: string;
+    nombreTipoDocumento:string;
     documento: string;
     clave: string;
     nombre: string;

@@ -8,6 +8,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ModalModule } from 'ngx-bootstrap';
 import { NgxPaginationModule} from 'ngx-pagination';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { MatDialogModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppRoutesModule } from './app.routes';
@@ -15,6 +16,7 @@ import { AccesosServicios } from './servicios/accesos.servicio';
 import { UsuariosServicios } from './servicios/usuarios.servicio';
 import { ServicioGlobal } from './servicios/global.servicio';
 import { EmpresasServicios } from './servicios/empresas.servicio';
+import { CargueMasivoService } from './servicios/cargue-masivo.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { EmpresasServicios } from './servicios/empresas.servicio';
     BrowserAnimationsModule,
     AppRoutesModule,
     HttpModule,
+    MatDialogModule,
     HttpClientModule,
     NgxPaginationModule,
     FilterPipeModule,
@@ -35,7 +38,8 @@ import { EmpresasServicios } from './servicios/empresas.servicio';
     ServicioGlobal,
     AccesosServicios,
     UsuariosServicios,
-    EmpresasServicios
+    EmpresasServicios,
+    CargueMasivoService
   ],
   bootstrap: [AppComponent]
 })

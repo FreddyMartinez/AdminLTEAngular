@@ -77,4 +77,10 @@ export class Conexion{
     public static readonly eliminarSucursalEmpresa : string = 'Empresas/eliminarSucursalEmpresa';
     public static readonly consultarTipoSucursal : string = 'Empresas/consultarTipoSucursal';
     //#endregion
+
+    //#region CarguesMasivos
+    public static readonly obtenerCarguesMasivos : string = 'CarguesMasivos/ObtenerCarguesMasivos';
+    public static readonly obtenerCarguesMasivosDet : string = 'CarguesMasivos/ObtenerCarguesMasivosDet';
+    public static readonly crearNuevoCargueMasivo : string = 'CarguesMasivos/CrearNuevoCargueMasivo';
+    //#endregion
 }

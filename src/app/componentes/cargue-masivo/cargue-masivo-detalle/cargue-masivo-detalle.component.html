@@ -1,0 +1,90 @@
+<div class="modal-header" style="background: #f5f5f5;">
+  <button type="button" class="close" data-dismiss="modal" style="color: red; font-size: 32px; opacity: .7;"
+    (click)="close()">&times;</button>
+  <h4 class="modal-title">Detalle{{transaccion != 'TD' ? ' (sólo líneas exitosas) ' : ' '}}del Cargue Masivo {{' ' +
+        cargue.id}} - {{cargue.nombre_archivo}}</h4>
+</div>
+<form class="app-modal-content" style="padding-bottom: 10px">
+  <div class="row">
+    <div class="col col-md-12 form-group">
+      <label for="formGroupExampleInput">Cargue:</label>
+      <input type="text" class="form-control" disabled value="{{cargue.id +' - '+cargue.nombre_archivo}}">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-6 form-group">
+      <label for="formGroupExampleInput">Usuario:</label>
+      <input type="text" class="form-control" disabled value="{{ cargue.usr_creacion  | uppercase }}">
+    </div>
+    <div class="col col-md-6 form-group">
+      <label for="formGroupExampleInput">Fecha de Creación:</label>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        <input type="text" class="form-control" disabled value="{{cargue.fecha_creacion | date:'dd/MM/yyyy hh:mm:ss'}}">
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="panel panel-success" style="margin-left: 20px; margin-right: 20px">
+  <div class="panel-heading">Líneas Registradas</div>
+  <div class="panel-body">
+    <div class="table-responsive col-md-12">
+      <div class="row col-md-12" style="padding-left: 0; margin-left: 0">
+        <span style="padding-left: 0; padding-top: 8px;margin-right: 5px">Mostrar</span>
+        <select name="example1_length" aria-controls="example1" [(ngModel)]="itemsPerPageDet" autofocus
+          style="width: 80px !important;">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+        </select>
+        <span style="padding-top: 8px;margin-left: 5px">registros</span>
+      </div>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th *ngFor="let x of lista.columnas">{{x}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of lista.datos  | paginate: { itemsPerPage: itemsPerPageDet, currentPage: pDet , id: 'pDet'}">
+            <td style="vertical-align:middle;  white-space: nowrap;" *ngFor="let y of lista.columnas">{{x[y].m_value}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <!-- <table class="table">
+        <thead>
+          <tr>
+            <th>Línea</th>
+            <th>Valor</th>
+            <th>Éxito</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of lista  | paginate: { itemsPerPage: itemsPerPageDet, currentPage: pDet , id: 'pDet'}">
+            <td style="vertical-align:middle; width: 32px">{{x.linea}}</td>
+            <td style="vertical-align:middle">{{x.valor_linea}}</td>
+            <td style="padding-top: 4px;padding-bottom: 2px;     width: 10px !important; vertical-align: middle">
+              <i class="fa fa-times fa-lg" style="color:Red" *ngIf="!x.exito"></i>
+              <i class="fa fa-check fa-lg" style="color:green" *ngIf="x.exito"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+      <div class="text-center">
+        <pagination-controls (pageChange)="pDet = $event" id="pDet" previousLabel="Anterior" nextLabel="Siguiente"
+          class="my-pagination"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" style=" margin-right: 10px;" (click)="close()">Cerrar</button>
+</div>
