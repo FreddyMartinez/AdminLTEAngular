@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Constantes } from 'src/app/util/constantes';
 import { BehaviorSubject } from 'rxjs';
+import { ListaDinamicaCargueMasivo } from 'src/app/modelos/lista-dinamica-cargue-masivo';
 
 @Component({
   selector: 'app-cargue-masivo-detalle',
@@ -21,7 +22,7 @@ export class CargueMasivoDetalleComponent implements OnInit {
   };
   transaccion: string;
   msgSpinner:string;
-  lista: any[] = [];
+  lista: ListaDinamicaCargueMasivo = new ListaDinamicaCargueMasivo();
 
   pDet: number[] = [];
   itemsPerPageDet: number = 10;
